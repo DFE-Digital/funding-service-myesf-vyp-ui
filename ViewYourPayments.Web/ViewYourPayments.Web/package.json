@@ -1,0 +1,15 @@
+{
+  "name": "viewyourpayments.web",
+  "version": "1.0.0",
+  "description": "View Your Payments GOVUK Web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "govuk-frontend": "^3.4.0",
+    "fastselect": "^0.7.3"
+  }
+}

@@ -1,0 +1,182 @@
+﻿.help {
+    /*-list-with-body__link-wrapper.govuk-sticky-element--stuck-to-window {
+    }*/
+    &-stuck-to-window {
+        position: fixed;
+        background-color: #f3f2f1;
+        bottom: -1px;
+        left: 0;
+        margin: 0;
+        position: -webkit-sticky;
+        position: sticky;
+        bottom: 0;
+        padding: 10px;
+        font-size: 1.0rem;
+        max-width: 1024px;
+
+        @media screen and (min-width:0\0) and (min-resolution:+72dpi), \0screen\,screen\9 {
+            width: 780px;
+            left: inherit;
+            margin-left: -10px;
+        }
+    }
+
+
+
+    &-content-list {
+        &-title {
+            color: #0b0c0c;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    &-lead-paragraph {
+        font-size: 1.6275rem;
+    }
+
+    &-page-content {
+        &-list-with-body__link-wrapper {
+            padding-left: 10px;
+        }
+
+        &-list-with-body__link-container {
+            margin: 0 auto;
+            padding: 0;
+            max-width: 1024px;
+        }
+
+        &-back-to-top {
+            padding: 20px;
+            display: inline-block
+        }
+
+        &--back-to-top__icon {
+            float: left;
+            margin-right: .3em;
+            width: .8em;
+            height: .968em;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        & img {
+            padding: 5px;
+            border: 2px solid #000000;
+        }
+
+        &-payment-details {
+            padding: 10px 20px 10px 20px;
+
+            img {
+                width: 600px;
+                height: 300px;
+            }
+        }
+
+        &-payment-summary {
+            padding: 10px 20px 10px 20px;
+
+            img {
+                width: 600px;
+                height: 400px;
+            }
+        }
+
+        &-payment-transaction {
+            padding: 10px 20px 10px 20px;
+
+            img {
+                width: 600px;
+                height: 550px;
+            }
+        }
+
+
+        &-publish {
+            padding-top: 5px;
+            border-top: 1px solid black;
+
+            div {
+                line-height: 1.5;
+                font-size: 1.1em;
+            }
+
+            span {
+                padding: 2px;
+            }
+
+            td {
+                font-size: 1.0rem;
+            }
+        }
+    }
+}
+
+.help-nav-link {
+    a {
+        padding: 6px 8px 6px 16px;
+        text-decoration: underline;
+        font-size: 1.0rem;
+        text-decoration: none;
+        display: block;
+    }
+
+    &-section-title {
+        padding-bottom: 5px;
+        padding-top: 5px;
+        font-size: 1.0em;
+        font-weight: normal;
+        margin-bottom: 5px;
+    }
+    /*a:hover {
+        color: #f1f1f1;
+    }*/
+}
+.help-page-table{
+    border:1px solid black;
+
+    tr {
+        border:1px solid black;
+    }
+
+    td {
+        border:1px solid black;
+        text-align:center;
+        padding:2px;
+
+        a{
+            font-size:.8em;
+            text-align:left;
+            vertical-align:top;
+        }
+    }
+}
+
+
+@media screen and (max-height: 450px) {
+    .help-sidenav {
+        padding-top: 15px;
+
+        a {
+            font-size: 18px;
+        }
+    }
+}
+.responsive-bottom-margin {
+    margin-bottom: 5px;
+}

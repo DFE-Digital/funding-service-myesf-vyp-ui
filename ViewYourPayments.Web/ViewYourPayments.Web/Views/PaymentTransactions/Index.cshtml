@@ -1,0 +1,81 @@
+﻿@model PaymentTransactionsPageViewModel
+
+@{
+    ViewData["Title"] = @Model.PageName;
+}
+@Html.AntiForgeryToken()
+
+@if (ViewBag.Section != null)
+{
+    <input type="hidden" value="@ViewBag.Section" id="hidActiveSection" />
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="header-wrapper">
+            <h1 class="govuk-heading-xl">
+                @Model.PageName
+                <p class="govuk-caption-xl">
+                    A list of the individual transactions you have received from the DfE
+                </p>
+                <span class="govuk-caption-xl">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                Help using this page
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <span>This page displays a list of payment transactions for funding you have received from the DfE. You can view transactions from up to 3 years ago.</span>
+                            <p class="govuk-label">On this page you can:</p>
+                            <ul class="govuk-list--bullet">
+                                <li>Use the date filter to view transactions for a custom date range</li>
+                                <li>Use the transactions filter to search for specific transaction descriptions within the date range</li>
+                                <li>View your total payments received for the filters you have selected</li>
+                                <li>View your budget group summary information for the filters you have selected</li>
+                                <li>Use the arrows next to each field heading to sort data in ascending/descending order. Sort by date descending to return to default view</li>
+                            </ul>
+                            <div>
+                                For more detailed information on using this page please read the <a asp-controller="Content" asp-action="PaymentHelpGuidelines" asp-fragment="payment-transaction-view" target="_blank" rel="external noopener noreferrer">View your payments guidance</a>
+                            </div>
+                        </div>
+                    </details>
+                </span>
+            </h1>
+            <div>
+                <partial name="_transactionFilter" model="@Model.TransactionFilter" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.HasValidationError)
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <p class="govuk-error-message">@Model.ValidationMessage</p>
+        </div>
+    </div>
+}
+else if (!Model.Result.PaymentTransactions.Any())
+{
+    <div class="govuk-grid-row">
+        <partial name="~/Views/Shared/_NoRecordView.cshtml" />
+    </div>
+}
+else
+{
+    <partial name="_budgetGroupDetails" model="@Model.Result" />
+
+    <partial name="_paymentTransactionsTable" model="@Model.Result" />
+    <div class="govuk-grid-column-full">
+        @using (Html.BeginForm("Index", "PaymentTransaction", FormMethod.Get))
+        {
+            <partial name="_Pagination" model="@Model" />
+        }
+    </div>
+}
+<div>
+    <a asp-controller="PaymentSummary" asp-action="Index" class="govuk-back-link"> Back to payment history</a>
+</div>
+

@@ -1,0 +1,16 @@
+[
+  {
+    "outputFile": "wwwroot/stylesheets/application.css",
+    "inputFile": "src/sass/application.scss",
+    "minify": { "enabled": true },
+    "includeInProject": true,
+    "options": { "sourceMap": true }
+  },
+  {
+    "outputFile": "public/stylesheets/application-ie8.css",
+    "inputFile": "src/sass/application-ie8.scss",
+    "minify": { "enabled": true },
+    "includeInProject": true,
+    "options": { "sourceMap": true }
+  }
+]

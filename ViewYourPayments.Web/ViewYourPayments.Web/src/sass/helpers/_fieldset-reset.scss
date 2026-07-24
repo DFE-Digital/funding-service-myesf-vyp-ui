@@ -1,0 +1,13 @@
+legend.govuk-reset-fieldset {
+  padding: 0;
+  display: table;
+}
+fieldset.govuk-reset-fieldset {
+  border: 0;
+  padding: 0.01em 0 0 0;
+  margin: 0;
+  min-width: 0;
+}
+body:not(:-moz-handler-blocked) fieldset.govuk-reset-fieldset {
+  display: table-cell;
+}

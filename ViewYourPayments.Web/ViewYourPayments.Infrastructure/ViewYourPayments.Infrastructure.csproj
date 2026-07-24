@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Database\**" />
+    <Compile Remove="Insight\**" />
+    <Compile Remove="Repositories\**" />
+    <EmbeddedResource Remove="Database\**" />
+    <EmbeddedResource Remove="Insight\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <EntityDeploy Remove="Repositories\**" />
+    <None Remove="Database\**" />
+    <None Remove="Insight\**" />
+    <None Remove="Repositories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ViewYourPayments.Core\ViewYourPayments.Core.csproj" />
+  </ItemGroup>
+
+</Project>

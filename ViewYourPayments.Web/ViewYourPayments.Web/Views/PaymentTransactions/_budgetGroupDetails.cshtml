@@ -1,0 +1,92 @@
+﻿@model PaymentTransactionResultViewModel
+@using ViewYourPayments.Web.Shared
+
+@{
+    var isBudgetGroupLenghtInOddNumber = (Model.BudgetGroupSummary.BudgetGroups.Length % 2) >0;
+    var isSingleBudgetGroup = Model.BudgetGroupSummary.BudgetGroups.Length == 1;
+}
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        <div class="govuk-accordion" data-module="govuk-accordion" id="transaction-summary-accordion">
+            <div class="govuk-accordion__section" id="budget-group-summary-section">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading govuk-heading-m">
+                        <button type="button" id="transaction-summary-accordion-heading-1" aria-controls="transaction-summary-accordion-content-1" class="govuk-accordion__section-button govuk-link govuk-link--no-visited-state" aria-describedby="transaction-summary-accordion-summary-1" aria-expanded="false">Total payments received <span id="filterTotal">@Model.BudgetGroupSummary.TotalAmount.ToCurrency()</span></button><span class="govuk-accordion__icon" aria-hidden="true"></span>
+                    </h2>
+                    <div class="govuk-accordion__section-summary govuk-body" id="transaction-summary-accordion-summary-1">
+                        Expand this table to view funding received for each budget group based on your applied filters.
+                    </div>
+                </div>
+                <div id="transaction-summary-accordion-content-1" class="govuk-accordion__section-content" aria-labelledby="transaction-summary-accordion-heading-1">
+                    <table class="govuk-table govuk-table-striped budget-group-table">
+                        <caption class="govuk-table__caption">
+                            Budget group summary
+                            <details class="govuk-details" data-module="govuk-details">
+                                <summary class="govuk-details__summary">
+                                    <span class="govuk-details__summary-text">
+                                        What is this?
+                                    </span>
+                                </summary>
+                                <div class="govuk-details__text">
+                                    This table shows how the payments you have received from the DfE are split across the different budget groups for the date range selected. For a full explanation of what is contained in each budget group, including contract references, please read
+                                    <a asp-controller="Content" asp-action="PaymentHelpGuidelines" asp-fragment="budget-group" target="_blank" rel="external noopener noreferrer">Your budget groups.</a>
+                                </div>
+                            </details>
+                        </caption>
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Budget Group</th>
+                                <th scope="col" class="govuk-table__header govuk-table__cell--numeric govuk-!-font-weight-bold">
+                                    Amount
+                                </th>
+                                @if (!isSingleBudgetGroup)
+                                {
+                                    <th scope="col" class="govuk-table__header">Budget Group</th>
+                                    <th scope="col" class="govuk-table__header govuk-table__cell--numeric govuk-!-font-weight-bold">
+                                        Amount
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th scope="col" class="govuk-table__header"></th>
+                                    <th scope="col" class="govuk-table__header govuk-table__cell--numeric govuk-!-font-weight-bold">
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+
+                            @for (int i = 0; i < Model.BudgetGroupSummary.BudgetGroups.Length - 1; i = i + 2)
+                            {
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        @Model.BudgetGroupSummary.BudgetGroups[i].BudgetDescription
+                                    </td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric ">@Model.BudgetGroupSummary.BudgetGroups[i].BudgetAmount.ToCurrency()</td>
+
+                                    <td class="govuk-table__cell">
+                                        @Model.BudgetGroupSummary.BudgetGroups[i + 1].BudgetDescription
+                                    </td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric">@Model.BudgetGroupSummary.BudgetGroups[i + 1].BudgetAmount.ToCurrency()</td>
+                                </tr>
+                            }
+                            @if (isBudgetGroupLenghtInOddNumber)
+                            {
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">
+                                        @Model.BudgetGroupSummary.BudgetGroups[Model.BudgetGroupSummary.BudgetGroups.Length - 1].BudgetDescription
+                                    </td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric ">@Model.BudgetGroupSummary.BudgetGroups[Model.BudgetGroupSummary.BudgetGroups.Length - 1].BudgetAmount.ToCurrency()</td>
+                                    <td class="govuk-table__cell"></td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric"></td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

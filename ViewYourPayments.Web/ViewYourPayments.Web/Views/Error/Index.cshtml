@@ -1,0 +1,12 @@
+﻿@model ErrorPageViewModel
+@{
+    ViewData["Title"] = Model.PageName;
+}
+    <div class="govuk-grid-row vyp-error-body">
+        <div class="govuk-grid-column-full"></div>
+        <div class="govuk-grid-column-full govuk-body">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <h1 class="govuk-heading-m">Please try again later</h1>
+            <p class="govuk-label-m">If the problem continues, you can <a href="@Model.ContactUsUrl" title="submit an enquiry">submit an enquiry</a>.</p>
+        </div>
+    </div>

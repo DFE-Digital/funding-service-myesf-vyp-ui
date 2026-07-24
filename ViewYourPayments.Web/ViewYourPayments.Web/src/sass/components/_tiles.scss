@@ -1,0 +1,47 @@
+.tiles-wrapper {
+  list-style: none;
+  clear: both;
+  padding: 0;
+
+  .tile {
+    text-decoration: none;
+    background-color: #0b0c0c;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 10px -15px 10px 0;
+    padding: 15px 15px 0px 15px;
+    color: white;
+    display: block;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .tile-header {
+    display: block;
+    min-height: 72px;
+
+  }
+
+  .tile-footer {
+    border-top: 5px solid white;
+    font-size: 19px;
+    font-weight: normal;
+    display: block;
+    margin: 10px -15px;
+    padding: 7px 15px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &-green {
+      background: #85994B;
+    }
+
+    &-blue {
+      background: #005ea5;
+    }
+  }
+}

@@ -1,0 +1,112 @@
+
+.panel {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.list-group,
+.list-group-item {
+  width: 100%;
+  font-family: "GDS Transport", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.list-group-item, .list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.is-checked {
+  font-weight: 600;
+}
+
+.list-group {
+  border-width: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none;
+  margin-top: 50px;
+}
+
+.list-group-item {
+  padding: 0;
+  margin: 0;
+  border-width: 0px 1px 0;
+  border-radius: 0 !important;
+  background-color: #fff;
+}
+
+.list-group-item span {
+  display: block;
+  float: left;
+  padding: 10px 15px;
+  border-color: #ddd;
+  border-style: solid;
+  border-width: 0 1px 1px 0;
+  box-sizing: border-box;
+}
+
+.list-group-item span:last-child {
+  border-right-width: 0;
+}
+.sort-link{
+    text-decoration:none;
+    cursor:pointer;
+}
+.table-header-with-sort{
+    white-space:nowrap;
+}
+//.transactionDate {
+//  /*   min-width: 100px; */
+//  width: 10%;
+//}
+//
+//.contractNumber {
+//  /*   min-width: 120px; */
+//  width: 15%;
+//}
+//
+//.fundingGroup {
+//  /*   min-width: 100px; */
+//  width: 15%;
+//}
+//
+//.description {
+//  /*   min-width: 100px; */
+//  width: 50%;
+//}
+//
+//.transactionAmount {
+//  /*   min-width: 100px; */
+//  width: 10%;
+//}
+#transaction-table {
+    position: relative;
+
+    .govuk-table__body {
+        position: relative;
+    }
+
+    .tb-data-single {
+        position: relative !important;
+        //display: flex;
+        //width: 100%;
+        //&:first-child{
+        //  margin-top: 70px;
+        //}
+        //
+        //td {
+        //  flex: 1 100%;
+        //
+        //  display: table-cell;
+        //}
+        // width: 100%;
+        //position: relative !important;
+    }
+}
+
+
+.govuk-table-list{
+
+}

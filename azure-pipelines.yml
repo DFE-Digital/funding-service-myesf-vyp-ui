@@ -1,0 +1,169 @@
+name: $(Build.DefinitionName)-$(date:yyyyMMdd)$(rev:.r)
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - "*"
+
+pr: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  # .NET SDK version number
+  dotnetVersion: '8.0'
+  # Path of project to be published
+  publishProjectPath: 'ViewYourPayments.Web/ViewYourPayments.Web/ViewYourPayments.Web.csproj'
+
+stages:
+# Stage 1 - Audit stage: This stage checks project dependencies for security vulnerabilities
+- stage: Audit
+  displayName: 'Run audit activities'
+  condition: always()
+  jobs:
+  # Job 1 - Audit: This job checks project dependencies for security vulnerabilities using default dotnet command 
+  - job: Audit
+    displayName: 'Audit project dependencies for security vulnerabilities'
+    steps:
+    # Step 1 - Set up .NET SDK
+    - task: UseDotNet@2
+      displayName: 'Set up .NET SDK (version $(dotnetVersion))'
+      inputs:
+        packageType: 'sdk'
+        version: '$(dotnetVersion).x'
+    # Step 2 - Installs NuGet.exe
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet.exe'
+    # Step 3 - Restores the NuGet packages to the solution
+    - task: NuGetCommand@2
+      displayName: 'Restore the NuGet packages to the solution'
+      inputs:
+        restoreSolution: '$(solution)'
+    # Step 4 - Installs npm packages to the working directory
+    - task: Npm@1
+      displayName: 'Install npm packages to the working directory'
+      inputs:
+        command: 'install'
+        workingDir: '$(build.sourcesdirectory)/ViewYourPayments.Web/ViewYourPayments.Web'    
+    # Step 5 - Check for security vulnerabilities within project dependencies
+    - task: Bash@3
+      displayName: 'Scan for vulnerable NuGet packages'
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Run dotnet command to check for vulnerable packages, including transitive dependencies
+          dotnet list package --vulnerable --include-transitive 2>&1 | tee build.log
+          echo "Analyse dotnet list package command log output..."
+          if grep -q -i "critical\|high" build.log; then
+              echo "Must fix security vulnerabilities found on the log output."
+              exit 1      # Fails the job if critical or high vulnerabilities are found
+          else
+              echo "No critical or high severity vulnerabilities found."
+              exit 0      # Passes the job if no critical/high vulnerabilities are found
+          fi
+   
+# Stage 2 - Test stage: This stage runs the project unit tests
+- stage: Test  
+  displayName: 'Run unit tests'
+  dependsOn: Audit
+  condition: succeeded()
+  jobs:
+  # Job 1 - Unit: Runs unit tests.
+  - job: Unit
+    displayName: 'Run unit tests'
+    dependsOn: []
+    steps:
+    # Step 1 - Set up .NET SDK
+    - task: UseDotNet@2
+      displayName: 'Set up .NET SDK (version $(dotnetVersion))'
+      inputs:
+        packageType: 'sdk'
+        version: '$(dotnetVersion).x'
+    # Step 2 - Installs NuGet.exe
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet.exe'
+    # Step 3 - Restores the NuGet packages to the solution
+    - task: NuGetCommand@2
+      displayName: 'Restore the NuGet packages to the solution'
+      inputs:
+        restoreSolution: '$(solution)'
+    # Step 4 - Installs npm packages to the working directory
+    - task: Npm@1
+      displayName: 'Install npm packages to the working directory'
+      inputs:
+        command: 'install'
+        workingDir: '$(build.sourcesdirectory)/ViewYourPayments.Web/ViewYourPayments.Web'
+    # Step 5 - Build the project
+    - task: VSBuild@1
+      displayName: 'Build solution'
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'    
+    # Step 6 - Run unit tests and filter by category
+    - task: VSTest@2
+      displayName: 'Run unit tests'
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+        testSelector: testAssemblies
+        codeCoverageEnabled: True
+
+# Stage 3 - Publish stage: This stage publishes the build artifact to be deployed in the release pipelines
+- stage: Publish
+  displayName: 'Publish build artifact'
+  dependsOn: Test
+  condition: succeeded()
+  jobs:
+  # Job 1 - Publish: This job publishes the build artifact from the project
+  - job: Publish
+    displayName: 'Publish build artifact'
+    steps:
+    # Step 1 - Set up .NET SDK
+    - task: UseDotNet@2
+      displayName: 'Set up .NET SDK (version $(dotnetVersion))'
+      inputs:
+        packageType: 'sdk'
+        version: '$(dotnetVersion).x'
+    # Step 2 - Installs NuGet.exe
+    - task: NuGetToolInstaller@1
+      displayName: 'Install NuGet.exe'
+    # Step 3 - Restores the NuGet packages to the solution
+    - task: NuGetCommand@2
+      displayName: 'Restore the NuGet packages to the solution'
+      inputs:
+        restoreSolution: '$(solution)'
+    # Step 4 - Installs npm packages to the working directory
+    - task: Npm@1
+      displayName: 'Install npm packages to the working directory'
+      inputs:
+        command: 'install'
+        workingDir: '$(build.sourcesdirectory)/ViewYourPayments.Web/ViewYourPayments.Web'
+    # Step 5 - Build the project
+    - task: VSBuild@1
+      displayName: 'Build solution'
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\"'
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'   
+    # Step 6 - Publish build artifact
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish build artifact'
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+    # Step 7 - Publish pipeline artifact
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish pipeline artifact'
+      inputs:
+        targetPath: '$(build.sourcesdirectory)/azure'
+        artifact: 'azure'
+        publishLocation: 'pipeline'

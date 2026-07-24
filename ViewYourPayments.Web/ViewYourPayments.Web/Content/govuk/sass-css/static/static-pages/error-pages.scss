@@ -1,0 +1,32 @@
+.error {
+  .intro {
+    background-color: #D5E8F3;
+    color: $text-colour;
+  }
+
+  form {
+    input[type="text"] {
+      @include core-24;
+
+      padding: 0.3em 0 0.1em 0.4em;
+      margin-left: 0;
+    }
+  }
+
+  .search-box {
+    label {
+      display: block;
+    }
+
+    input[type="text"], input[type="search"] {
+      background-color: $panel-colour;
+      border: 2px inset;
+    }
+  }
+
+  @include media(mobile) {
+    .page-header div {
+      padding-left: 1em;
+    }
+  }
+}

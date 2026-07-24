@@ -1,0 +1,87 @@
+﻿@model BasePageViewModel
+
+@if (!Model.CookiesPreferencesSet)
+{
+    <main id="cookies" class="govuk-width-container govuk-visually-hidden print-hidden">
+
+        <div class="grid-row padding-top">
+            <div class="column-full">
+
+                <h2 class="heading-medium">Can we store cookies on your device?</h2>
+
+                <div class="text-center">
+                    <p>We use some essential cookies to make this website work.</p>
+                    <p>
+                        We'd like to set additional cookies to understand how you use this website, remember your settings and improve our services. The cookies we use are listed on our cookies page.
+                    </p>
+                </div>
+
+                <div class="govuk-button-group">
+                    <button id="accept-button" value="accept" type="button" class="govuk-button button margin-right margin-bottom">
+                        Accept additional cookies
+                    </button>
+
+                    <button id="reject-button" value="reject" type="button" class="govuk-button button margin-right margin-bottom">
+                        Reject additional cookies
+                    </button>
+
+                    <a class="govuk-link" href="@Model.ViewCookiesUsedByEsfaLink">View cookies used by DfE</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <main class="govuk-width-container govuk-visually-hidden print-hidden" id="cookiesallowed">
+        <div class="grid-row padding-top">
+
+            <div class="column-full">
+                <div class="text-center">
+                    <p>You have accepted additional cookies. You can <a class="govuk-link" href="@Model.SelectCookiesLink">change your cookie settings</a> at any time.</p>
+                </div>
+
+                <div class="govuk-form-group">
+                    <button id="hide-message-button-accept" class="govuk-button button">
+                        Hide this message
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main class="govuk-width-container govuk-visually-hidden print-hidden" id="cookiesnotallowed">
+
+        <div class="grid-row padding-top">
+
+            <div class="column-full">
+                <div class="text-center">
+                    <p>You have rejected additional cookies. You can <a class="govuk-link" href="@Model.SelectCookiesLink">change your cookie settings</a> at any time.</p>
+                </div>
+
+                <div class="govuk-form-group">
+                    <button id="hide-message-button-reject" class="govuk-button button">
+                        Hide this message
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <noscript>
+        <main class="govuk-width-container print-hidden" aria-label="Cookies">
+            <div class="grid-row padding-top">
+                <div class="column-full">
+                    <h2 class="heading-medium">Cookies</h2>
+
+                    <div class="text-center">
+                        <p class="govuk-body">We use some essential cookies to make this service work.</p>
+                    </div>
+
+                    <div class="govuk-button-group">
+                        <a class="govuk-link" href=@Model.ViewCookiesUsedByEsfaLink>View cookies</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </noscript>
+}

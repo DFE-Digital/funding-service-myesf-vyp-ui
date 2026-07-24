@@ -1,0 +1,221 @@
+.govuk-filter-group{
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: $govuk-border-colour;
+  display: block;
+  width: 100%;
+  position: relative;
+  @include govuk-clearfix;
+  z-index: 1000;
+  &__container{
+    float: left;
+    margin: 0;
+    padding: 15px;
+    text-align: left;
+    background: none;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: $govuk-border-colour;
+    height: 50px;
+    min-width: 225px;
+    overflow: visible;
+    background: white;
+    cursor: pointer;
+
+    &__title{
+      @extend .govuk-heading-s;
+      margin: 0;
+    }
+    &__subtitle{
+      @extend .govuk-body;
+      margin-right:45px;
+      position: relative;
+      max-width: 450px;
+      white-space: nowrap;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:after{
+        content: "";
+        position: absolute;
+        right: -45px;
+        top: 5px;
+        @extend .arrow-down;
+        //chevron down
+      }
+    }
+    &.buttons{
+      border-right: 0 solid transparent;
+      text-align: right;
+      float: right;
+      button{
+        margin-top: 5px;
+      }
+
+    }
+  }
+  &__submenu{
+    list-style: none;
+    z-index: 1000;
+    background: #fff;
+    margin: 16px -15px 0px -15px;
+    padding: 0;
+    border: 0 solid transparent;
+    border-top: 1px solid $govuk-border-colour;
+    &.hidden{
+      display: none;
+    }
+    &__menu-item{
+      @extend .govuk-body;
+      margin: 0;
+      padding: 15px;
+      background-color: #fff;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $govuk-border-colour;
+      overflow-wrap: break-word;
+      position: relative;
+      &.back-link{
+      }
+      &:hover{
+        background-color:  $govuk-link-hover-colour;
+        color: white;
+      }
+    }
+
+  }
+}
+.govuk-button__filters{
+ @extend .govuk-button;
+  width: 100%;
+  margin: 0;
+}
+.filter-form{
+  fieldset {
+    max-height: 326px;
+    overflow: auto;
+  }
+  legend{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    @extend .govuk-heading-s;
+    padding: 10px 0;
+    margin: -1px 0;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: $govuk-border-colour;
+    width: 100%;
+    position: relative;
+    &:before{
+      content: "";
+      display: inline;
+      margin-left: 15px;
+    }
+  }
+  .govuk-custom-checkbox{
+    display: list-item;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  /* Hide the browser's default checkbox */
+  input[type=checkbox] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* Create a custom checkbox */
+  .checkmark {
+    float: left;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    display: block;
+    margin-right: 15px;
+  }
+
+  /* On mouse-over, add a grey background color */
+  .govuk-custom-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+
+  /* When the checkbox is checked, add a blue background */
+  .govuk-custom-checkbox input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the checkmark when checked */
+  .govuk-custom-checkbox input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  /* Style the checkmark/indicator */
+  .govuk-custom-checkbox .checkmark:after {
+    padding: 1px;
+    margin: 3px 7px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+.filter-bottom-group{
+  text-align: right;
+  padding-top:20px;
+  padding:20px 0px 0px 0px;
+
+}
+
+.quicksearch-fieldset {
+    width: 85%;
+    margin-top: 20px !important;
+}
+// date filter
+#three-year-error, #future-date-error, #invalid-date-error, #incorrect-date-order-error {
+    display: none;
+}
+
+.govuk-form-group--error {
+    &.three-year-warning {
+        #three-year-error {
+            display: inherit;
+        }
+    }
+
+    &.future-date-warning {
+        #future-date-error {
+            display: inherit;
+        }
+    }
+
+    &.invalid-date-warning {
+        #invalid-date-error {
+            display: inherit;
+        }
+    }
+
+    &.incorrect-date-order-warning {
+        #incorrect-date-order-error {
+            display: inherit;
+        }
+    }
+}

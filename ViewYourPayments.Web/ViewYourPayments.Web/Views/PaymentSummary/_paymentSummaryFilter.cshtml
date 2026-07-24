@@ -1,0 +1,17 @@
+﻿
+@model DatePickerViewModel
+
+<form class="govuk-form-group" id="datePicker" method="post">
+    <partial name="_DatePicker" model="@Model" />
+    <div class="govuk-grid-column-full filter-bottom-group">
+        <button class="govuk-button" data-module="govuk-button" id="apply-payment-filters" type="submit" formaction='@Url.Action(Model.FilterAction,Model.ControllerName)'>
+            Apply
+        </button>
+
+        <button class="govuk-button govuk-button--secondary  govuk-!-margin-right-1" formnovalidate type="submit" id="reset-date-range"
+                formaction='@Url.Action("Reset",@Model.ControllerName)' formmethod="post"
+                data-module="govuk-button">
+            Reset
+        </button>
+    </div>
+</form>

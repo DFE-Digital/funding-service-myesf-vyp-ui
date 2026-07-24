@@ -1,0 +1,96 @@
+﻿
+@model DatePickerViewModel
+
+    <fieldset class="govuk-reset-fieldset govuk-grid-column-full" id="byDateRange"
+              data-filter-group="dateRangeFilter" data-filter="dateRangeFilter" role="group">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <h2 class="govuk-fieldset__heading">
+                @Model.ControlHeader
+            </h2>
+            <span class="govuk-label">@Model.ControlPrompt</span>
+        </legend>
+        <input type="hidden" value="@Model.InitialDurationInDays" id="initial-duration-days" />
+
+        <span id="three-year-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @ViewYourPayments.Web.Shared.ErrorMessages.MaxDateDuration
+        </span>
+        <span id="future-date-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @ViewYourPayments.Web.Shared.ErrorMessages.FutureDateNotAllowed
+        </span>
+        <span id="invalid-date-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @ViewYourPayments.Web.Shared.ErrorMessages.InvalidDates
+        </span>
+        <span id="incorrect-date-order-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @ViewYourPayments.Web.Shared.ErrorMessages.FromDateShouldBeBeforeTodate
+        </span>
+        <div class="govuk-date-input ">
+            <div class="govuk-!-display-inline-block" id="start-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="start-date-day">
+                            Day
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-date-input__day govuk-input--width-2"
+                               id="start-date-day"
+                               name="start-date-day" min="1" max="31" maxlength="2" type="text" pattern="[0-9]*" inputmode="numeric" value="@Model.StartDateDay">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="start-date-month">
+                            Month
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-date-input__month  govuk-input--width-2"
+                               id="start-date-month" name="start-date-month" type="text" maxlength="2" min="1" max="12"
+                               pattern="[0-9]*" inputmode="numeric"
+                               value="@Model.StartDateMonth">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="start-date-year">
+                            Year
+                        </label>
+                        <select class="govuk-input govuk-date-input__input govuk-date-input__year govuk-input--width-4"
+                                id="start-date-year"
+                                name="start-date-year" asp-for="@Model.StartDateYear" asp-items="@Model.YearRange">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <p class="govuk-!-display-inline-block govuk-!-margin-right-5">to</p>
+            <div id="end-date" class="govuk-!-display-inline-block">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="end-date-day">
+                            Day
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-date-input__day govuk-input--width-2"
+                               id="end-date-day" maxlength="2" min="1" max="31"
+                               name="end-date-day" type="text" pattern="[0-9]*" inputmode="numeric" value="@Model.EndDateDay">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="end-date-month">
+                            Month
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-date-input__month govuk-input--width-2"
+                               id="end-date-month" maxlength="2" min="1" max="12"
+                               name="end-date-month" type="text"  pattern="[0-9]*" inputmode="numeric" value="@Model.EndDateMonth">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="end-date-year">
+                            Year
+                        </label>
+                        <select class="govuk-input govuk-date-input__input govuk-date-input__year govuk-input--width-4"
+                                id="end-date-year"
+                                name="end-date-year" asp-for="@Model.EndDateYear" asp-items="@Model.YearRange">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>

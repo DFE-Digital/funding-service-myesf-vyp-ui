@@ -1,0 +1,824 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentTag": {
+      "type": "string"
+    },
+    "parentBusinessTag": {
+      "type": "string"
+    },
+    "portfolioTag": {
+      "type": "string"
+    },
+    "productTag": {
+      "type": "string"
+    },
+    "serviceLineTag": {
+      "type": "string"
+    },
+    "appServiceVirtualApplications": {
+      "type": "array",
+      "defaultValue": [
+        {
+          "virtualPath": "/",
+          "physicalPath": "site\\wwwroot",
+          "preloadEnabled": true,
+          "virtualDirectories": null
+        },
+        {
+          "virtualPath": "/manage-funding",
+          "physicalPath": "site\\wwwroot",
+          "preloadEnabled": true,
+          "virtualDirectories": null
+        },
+        {
+          "virtualPath": "/manage-funding/payments",
+          "physicalPath": "site\\wwwroot",
+          "preloadEnabled": true,
+          "virtualDirectories": null
+        }
+      ]
+    },
+    "resourceEnvironmentName": {
+      "type": "string"
+    },
+    "environmentInstanceNumber": {
+      "type": "string"
+    },
+    "environmentName": {
+      "type": "string"
+    },
+    "serviceName": {
+      "type": "string"
+    },
+    "sharedAppServicePlanName": {
+      "type": "string"
+    },
+    "sharedAppInsightsName": {
+      "type": "string"
+    },
+    "appLoggingAppInsightsName": {
+      "type": "string"
+    },
+    "sharedResourceGroup": {
+      "type": "string"
+    },
+    "Environment": {
+      "type": "string",
+      "metadata": {
+        "description": "The DataImportSetting:Environment from Release Variables"
+      }
+    },
+    "ClaimsIssuer": {
+      "type": "string",
+      "metadata": {
+        "description": "The ClaimsIssuer from Release Variables"
+      }
+    },
+    "MetadataAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "The MetadataAddress from Release Variables"
+      }
+    },
+    "CallbackPath": {
+      "type": "string",
+      "metadata": {
+        "description": "The CallbackPath from Release Variables"
+      }
+    },
+    "RequireHttpsMetadata": {
+      "type": "string",
+      "metadata": {
+        "description": "The RequireHttpsMetadata from Release Variables"
+      }
+    },
+    "Wtrealm": {
+      "type": "string",
+      "metadata": {
+        "description": "The Wtrealm from Release Variables"
+      }
+    },
+    "RedirectUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "The RedirectUrl from Release Variables"
+      }
+    },
+    "MyEsfUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "The MyEsfUrl from Release Variables"
+      }
+    },
+    "MSClarityId": {
+      "type": "string",
+      "metadata": {
+        "description": "The MSClarityId from Release Variables"
+      },
+      "defaultValue": "MSClarityTestId"
+    },
+    "ProviderSearchSettingsServiceEndpoint": {
+      "type": "string",
+      "metadata": {
+        "description": "The ServiceEndpoint for ProviderSearchSettings"
+      }
+    },
+    "ProviderSearchSettingsSchemaVersion": {
+      "type": "string",
+      "metadata": {
+        "description": "The schemaVersion for ProviderSearchSettings"
+      }
+    },
+    "ProviderSearchSettingsStakeholderId": {
+      "type": "string",
+      "metadata": {
+        "description": "The StakeholderId for ProviderSearchSettings"
+      }
+    },
+    "PaymentsApiHttpClientSettingsBaseAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "App Setting Payments Api Http Client Settings Base Address"
+      }
+    },
+    "OAuthHttpClientSettingsGrantType": {
+      "type": "string",
+      "metadata": {
+        "description": "App Setting OAuth Http Client Settings Grant Type"
+      }
+    },
+    "OAuthHttpClientSettingsResource": {
+      "type": "string",
+      "metadata": {
+        "description": "App Setting OAuth Http Client Settings Resource"
+      }
+    },
+    "OAuthHttpClientSettingsBaseAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "App Setting OAuth Http Client Settings BaseAddress"
+      }
+    },
+    "sharedKeyVaultName": {
+      "defaultValue": "",
+      "type": "String",
+      "metadata": {
+        "description": "Name of the Shared KeyVault."
+      }
+    },
+    "DfeSettingsOidcClientId": {
+      "defaultValue": "UYP",
+      "type": "String"
+    },
+    "DfeSettingsOidcAuthority": {
+      "type": "String"
+    },
+    "DfeSettingsOidcAudience": {
+      "defaultValue": "signin.education.gov.uk",
+      "type": "String"
+    },
+    "DfeSettingsOidcRedirectUrl": {
+      "type": "String"
+    },
+    "DfeSettingsOidcPostLogOutUrl": {
+      "type": "String"
+    },
+    "DfeRoleProviderOidcClientId": {
+      "defaultValue": "MYESF",
+      "type": "String"
+    },
+    "DfeSettingsDfeSignInRolesApiUrl": {
+      "type": "String"
+    },
+    "DfeSettingsDfeSignInUrl": {
+      "type": "String"
+    },
+    "webIpSecurityRestrictions": {
+      "type": "array",
+      "metadata": {
+        "description": "Web IP Restrictions"
+      }
+    },
+    "sharedWorkspaceID": {
+      "type": "string"
+    },
+    "sharedARMStorageName": {
+      "type": "string",
+      "metadata": {
+        "description": "Shared Storage Account for App Service Classic Logging"
+      }
+    },
+    "appServiceHTTPLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service HTTP logs diagnostic setting"
+      }
+    },
+    "appServiceConsoleLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service console logs diagnostic setting"
+      }
+    },
+    "appServiceAppLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service app logs diagnostic setting"
+      }
+    },
+    "appServiceFileAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service file audit logs diagnostic setting"
+      }
+    },
+    "appServiceAuditLogsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "App Service audit logs diagnostic setting"
+      }
+    },
+    "appServiceAllMetricsSetting": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "All Metrics diagnostic setting"
+      }
+    },
+    "appServiceRetentionPolicyEnabled": {
+      "type": "bool",
+      "defaultValue": true
+    },
+    "appServiceRetentionPolicyDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "appServiceLogRetentionDays": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "appServiceLogRetentionMb": {
+      "type": "string",
+      "defaultValue": "30"
+    },
+    "applogToBlob": {
+      "type": "string",
+      "metadata": {
+        "description": "Log Application logs to Blob, default is off"
+      }
+    },
+    "weblogToBlob": {
+      "type": "bool",
+      "metadata": {
+        "description": "Log HTTP logs to Blob, default is off"
+      }
+    },
+    "actionGroupShortName": {
+      "type": "string",
+      "defaultValue": "FundingDO"
+    },
+    "actionGroupName": {
+      "type": "string",
+      "defaultValue": "Email Action"
+    },
+    "actionName": {
+      "type": "string",
+      "defaultValue": "Email Funding DevOps Team"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "appInsightName": {
+      "type": "string"
+    },
+    "ukrlpWebTestURL": {
+      "type": "string"
+    },
+    "bcWebTestURL": {
+      "type": "string"
+    },
+    "ukrlpPingTestName": {
+      "type": "string",
+      "defaultValue": "UKRLP-Ping-Test"
+    },
+    "bcPingTestName": {
+      "type": "string",
+      "defaultValue": "BC-Ping-Test"
+    },
+    "ukrlpPingTestDescription": {
+      "type": "string",
+      "defaultValue": "UKRLP Web service Ping Test"
+    },
+    "ukrlpAlertDescription": {
+      "type": "string",
+      "defaultValue": "Ping Test for UKRLP has failed"
+    },
+    "bcPingTestDescription": {
+      "type": "string",
+      "defaultValue": "BC Web service Ping Test"
+    },
+    "bcAlertDescription": {
+      "type": "string",
+      "defaultValue": "Ping Test for BC has failed"
+    },
+    "navApiSubscriptionKey": {
+      "type": "securestring"
+    },
+    "headerName": {
+      "type": "string",
+      "defaultValue": "Ocp-Apim-Subscription-Key"
+    },
+    "healthCheckPath": {
+      "type": "string",
+      "defaultValue": "/"
+    },
+    "enableTest": {
+      "type": "bool"
+    }
+  },
+  "variables": {
+    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/funding-platform-building-blocks/resourceTags/templates/",
+    "viewYourPaymentsWebAppServiceName": "[concat(variables('resourceNamePrefix'), '-web-as-', parameters('environmentInstanceNumber'))]",
+    "resourceNamePrefix": "[toLower(concat(parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
+    "httpLogBlobName": "[concat(variables('viewYourPaymentsWebAppServiceName'),'-webserver-logs')]",
+    "applicationLogBlobName": "[concat(variables('viewYourPaymentsWebAppServiceName'),'-application-logs')]",
+    "keyVaultName": "[concat(variables('resourceNamePrefix'), '-shared-kv-', parameters('environmentInstanceNumber'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "app-service",
+      "dependsOn": [
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "appServiceName": {
+            "value": "[variables('viewYourPaymentsWebAppServiceName')]"
+          },
+          "appServicePlanName": {
+            "value": "[parameters('sharedAppServicePlanName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[parameters('sharedResourceGroup')]"
+          },
+          "healthCheckPath": {
+            "value": "[parameters('healthCheckPath')]"
+          },
+          "appServiceAppSettings": {
+            "value": [
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('Microsoft.Insights/components', parameters('sharedAppInsightsName')), '2014-04-01').InstrumentationKey]"
+              },
+              {
+                "name": "AppSettings:APPLOGGINGAPPINSIGHTS_INSTRUMKEY",
+                "value": "[reference(resourceId('Microsoft.Insights/components', parameters('appLoggingAppInsightsName')), '2014-04-01').InstrumentationKey]"
+              },
+              {
+                "name": "Environment",
+                "value": "[parameters('Environment')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:ClaimsIssuer",
+                "value": "[parameters('ClaimsIssuer')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:MetadataAddress",
+                "value": "[parameters('MetadataAddress')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:CallbackPath",
+                "value": "[parameters('CallbackPath')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:RequireHttpsMetadata",
+                "value": "[parameters('RequireHttpsMetadata')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:Wtrealm",
+                "value": "[parameters('Wtrealm')]"
+              },
+              {
+                "name": "AppSettings:IdamsSettings:RedirectUrl",
+                "value": "[parameters('RedirectUrl')]"
+              },
+              {
+                "name": "AppSettings:MyEsfUrl",
+                "value": "[parameters('MyEsfUrl')]"
+              },
+              {
+                "name": "AppSettings:MSClarityId",
+                "value": "[parameters('MSClarityId')]"
+              },
+              {
+                "name": "AppSettings:ProviderSearchSettings:ServiceEndpoint",
+                "value": "[parameters('ProviderSearchSettingsServiceEndpoint')]"
+              },
+              {
+                "name": "AppSettings:ProviderSearchSettings:schemaVersion",
+                "value": "[parameters('ProviderSearchSettingsSchemaVersion')]"
+              },
+              {
+                "name": "AppSettings:ProviderSearchSettings:StakeholderId",
+                "value": "[parameters('ProviderSearchSettingsStakeholderId')]"
+              },
+              {
+                "name": "AppSettings:PaymentsApiHttpClientSettings:BaseAddress",
+                "value": "[parameters('PaymentsApiHttpClientSettingsBaseAddress')]"
+              },
+              {
+                "name": "AppSettings:PaymentsApiHttpClientSettings:ApimSubscriptionKey",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'ApimSubscriptionKey'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:OAuthHttpClientSettings:Resource",
+                "value": "[parameters('OAuthHttpClientSettingsResource')]"
+              },
+              {
+                "name": "AppSettings:OAuthHttpClientSettings:ClientId",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'OAuthHttpClientSettingsClientId'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:OAuthHttpClientSettings:GrantType",
+                "value": "[parameters('OAuthHttpClientSettingsGrantType')]"
+              },
+              {
+                "name": "AppSettings:OAuthHttpClientSettings:BaseAddress",
+                "value": "[parameters('OAuthHttpClientSettingsBaseAddress')]"
+              },
+              {
+                "name": "AppSettings:OAuthHttpClientSettings:ClientSecret",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'OAuthHttpClientSettingsClientSecret'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcClientId",
+                "value": "[parameters('DfeSettingsOidcClientId')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcClientSecret",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'DfeSettingsOidcClientSecret'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcAuthority",
+                "value": "[parameters('DfeSettingsOidcAuthority')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcAudience",
+                "value": "[parameters('DfeSettingsOidcAudience')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcRedirectUrl",
+                "value": "[parameters('DfeSettingsOidcRedirectUrl')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:OidcPostLogOutUrl",
+                "value": "[parameters('DfeSettingsOidcPostLogOutUrl')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:DfeLegacyCodeId",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'DfeSettingsDfeLegacyCodeId'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:DfeRoleProviderSettings:OidcClientId",
+                "value": "[parameters('DfeRoleProviderOidcClientId')]"
+              },
+              {
+                "name": "AppSettings:DfeRoleProviderSettings:OidcClientSecret",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'DfeRoleProviderSettingsOidcClientSecret'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
+                "name": "AppSettings:DfeRoleProviderSettings:OidcAudience",
+                "value": "[parameters('DfeSettingsOidcAudience')]"
+              },
+              {
+                "name": "AppSettings:DfeRoleProviderSettings:DfeSignInRolesApiUrl",
+                "value": "[parameters('DfeSettingsDfeSignInRolesApiUrl')]"
+              },
+              {
+                "name": "AppSettings:DfeSettings:DfeSignInUrl",
+                "value": "[parameters('DfeSettingsDfeSignInUrl')]"
+              },              
+              {
+                "name": "WEBSITE_TIME_ZONE",
+                "value": "GMT Standard Time"
+              }
+            ]
+          },
+          "ipSecurityRestrictions": {
+            "value": "[parameters('webIpSecurityRestrictions')]"
+          },
+          "appServiceVirtualApplications": {
+            "value": "[parameters('appServiceVirtualApplications')]"
+          },
+          "appServiceHTTPLogsSetting": {
+            "value": "[parameters('appServiceHTTPLogsSetting')]"
+          },
+          "workspaceId": {
+            "value": "[parameters('sharedWorkspaceID')]"
+          },
+          "appServiceConsoleLogsSetting": {
+            "value": "[parameters('appServiceConsoleLogsSetting')]"
+          },
+          "appServiceAppLogsSetting": {
+            "value": "[parameters('appServiceAppLogsSetting')]"
+          },
+          "appServiceFileAuditLogsSetting": {
+            "value": "[parameters('appServiceFileAuditLogsSetting')]"
+          },
+          "appServiceAuditLogsSetting": {
+            "value": "[parameters('appServiceAuditLogsSetting')]"
+          },
+          "allMetricsSetting": {
+            "value": "[parameters('appServiceAllMetricsSetting')]"
+          },
+          "retentionPolicyEnabled": {
+            "value": "[parameters('appServiceRetentionPolicyEnabled')]"
+          },
+          "retentionPolicyDays": {
+            "value": "[parameters('appServiceRetentionPolicyDays')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_App_Service_classic_logging",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'app-service')]",
+        "deploy_applicationlog_blob_container",
+        "deploy_weblog_blob_container"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'app-service-logging.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceResourceName": {
+            "value": "[variables('viewYourPaymentsWebAppServiceName')]"
+          },
+          "appServiceLogRetentionDays": {
+            "value": "[parameters('appServiceLogRetentionDays')]"
+          },
+          "appServiceLogRetentionMb": {
+            "value": "[parameters('appServiceLogRetentionMb')]"
+          },
+          "applogToBlob": {
+            "value": "[parameters('applogToBlob')]"
+          },
+          "weblogToBlob": {
+            "value": "[parameters('weblogToBlob')]"
+          },
+          "sharedLogStorageAccount": {
+            "value": "[parameters('sharedARMStorageName')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "deploy_applicationlog_blob_container",
+      "dependsOn": [
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'storage-container.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('sharedARMStorageName')]"
+          },
+          "containerName": {
+            "value": "[variables('applicationLogBlobName')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "deploy_weblog_blob_container",
+      "dependsOn": [
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'storage-container.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('sharedARMStorageName')]"
+          },
+          "containerName": {
+            "value": "[variables('httpLogBlobName')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2017-05-10",
+      "name": "Action_Group_Deployment",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'action-group.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "environmentTag": {
+            "value": "[parameters('environmentTag')]"
+          },
+          "parentBusinessTag": {
+            "value": "[parameters('parentBusinessTag')]"
+          },
+          "portfolioTag": {
+            "value": "[parameters('portfolioTag')]"
+          },
+          "productTag": {
+            "value": "[parameters('productTag')]"
+          },
+          "serviceLineTag": {
+            "value": "[parameters('serviceLineTag')]"
+          },
+          "actionGroupShortName": {
+            "value": "[parameters('actionGroupShortName')]"
+          },
+          "actionGroupName": {
+            "value": "[parameters('actionGroupName')]"
+          },
+          "emailActionName": {
+            "value": "[parameters('actionName')]"
+          },
+          "emailAddress": {
+            "value": "[parameters('emailAddress')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "WebTest_Deployment_UKRLP",
+      "apiVersion": "2014-04-01",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'Action_Group_Deployment')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'webtest-alert.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightName": {
+            "value": "[parameters('appInsightName')]"
+          },
+          "webTestURL": {
+            "value": "[parameters('ukrlpWebTestURL')]"
+          },
+          "testName": {
+            "value": "[parameters('ukrlpPingTestName')]"
+          },
+          "pingTestDescription": {
+            "value": "[parameters('ukrlpPingTestDescription')]"
+          },
+          "actionGroupName": {
+            "value": "[parameters('actionGroupName')]"
+          },
+          "alertDescription": {
+            "value": "[parameters('ukrlpAlertDescription')]"
+          },
+          "webTestType": {
+            "value": "pingtest"
+          },
+          "webTestKind": {
+            "value": "ping"
+          },
+          "enableTest": {
+            "value": "[parameters('enableTest')]"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "name": "WebTest_Deployment_BC",
+      "apiVersion": "2014-04-01",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', 'Action_Group_Deployment')]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'webtest-alert.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightName": {
+            "value": "[parameters('appInsightName')]"
+          },
+          "testName": {
+            "value": "[parameters('bcPingTestName')]"
+          },
+          "pingTestDescription": {
+            "value": "[parameters('bcPingTestDescription')]"
+          },
+          "subscriptionkey": {
+            "value": "[parameters('navApiSubscriptionKey')]"
+          },
+          "headerName": {
+            "value": "[parameters('headerName')]"
+          },
+          "webTestURL": {
+            "value": "[parameters('bcWebTestURL')]"
+          },
+          "actionGroupName": {
+            "value": "[parameters('actionGroupName')]"
+          },
+          "alertDescription": {
+            "value": "[parameters('bcAlertDescription')]"
+          },
+          "webTestType": {
+            "value": "multiStepTest"
+          },
+          "webTestKind": {
+            "value": "multistep"
+          },
+          "enableTest": {
+            "value": "[parameters('enableTest')]"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "Deploy_Frontend_KeyVaultPolicy",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "app-service"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'keyvault-accesspolicies.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[variables('keyVaultName')]"
+          },
+          "accessPolicies": {
+            "value": [
+              {
+                "tenantId": "[subscription().tenantId]",
+                "objectId": "[reference(concat('Microsoft.Web/sites/', variables('viewYourPaymentsWebAppServiceName')), '2018-02-01', 'Full').identity.principalId]",
+                "permissions": {
+                  "secrets": [
+                    "list",
+                    "get"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "outputs": {
+  }
+}

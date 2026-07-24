@@ -1,0 +1,22 @@
+﻿@model BasePageViewModel
+    <div class="govuk-sub-navigation">
+        <span class="govuk-sub-navigation__text">@Model.ProviderName (UKPRN : @Model.UkprnNumber)</span>
+        
+            <ul class="govuk-sub-navigation__list print-hidden">
+
+                @if (Model.DisplayChangeProvider)
+                {
+                    <li class="govuk-sub-navigation__list-item">
+                        <a href="@Model.ChangeProviderUrl">Change Provider</a>
+                    </li>
+                }
+                <li class="govuk-sub-navigation__list-item">
+            <a href="@Model.ViewYourSubservicesUrl">View your sub-services</a>
+                </li>
+                <li class="govuk-sub-navigation__list-item">
+                    <a asp-controller="account" asp-action="Signout">Sign out</a>
+                </li>
+            </ul>
+
+    </div>
+

@@ -1,0 +1,62 @@
+@model string
+<script>
+
+    var msClarityId = '@Model';    
+
+    // Enable tracking only if the opt-in cookie exists.
+    let cookiesPrefSet = document.cookie.indexOf("cookies_preferences_set=true") > -1;
+    if (cookiesPrefSet) {
+
+        let cookiesPolicy = getCookie("cookies_policy");
+
+        if (cookiesPolicy != "") {
+
+            let cookiePolicy = JSON.parse(cookiesPolicy);
+
+            if (cookiePolicy.usage == true) {
+
+                // MS Clarity
+                msClarityOptIn();
+            }
+        }
+    }
+
+    // MS Clarity Opt-in function
+    function msClarityOptIn() {
+
+        if (msClarityId === 'MSClarityTestId') {
+            return true;
+        }
+
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", msClarityId);
+
+        window.clarity('consentv2',{
+           ad_Storage: "granted", 
+           analytics_Storage: "granted" 
+        });
+    }
+
+    function getCookie(cookieName) {
+        var name = cookieName + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+</script>
+
+@* TODO: Need to undo the code once we removed the GA
+<script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + " js-enabled" : "js-enabled");</script>*@

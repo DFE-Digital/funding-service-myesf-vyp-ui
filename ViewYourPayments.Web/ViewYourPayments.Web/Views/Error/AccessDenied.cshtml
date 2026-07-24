@@ -1,0 +1,38 @@
+﻿@model UnauthorisedErrorViewModel
+@{
+    ViewData["PageName"] = @Model.PageName;
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="form-block">
+            <h1 class="govuk-heading-xl">You do not have access to this page</h1>
+        </div>
+        @if (@Model.requiredRoles?.Count() == 1)
+        {
+            <p class="govuk-label-m">To view this page, add the @Model.requiredRoles.First() sub-service to your DfE Sign-In account.</p>
+        }
+        else
+        {
+            <p class="govuk-label-m">To view this page, add one of the following sub-services to your DfE Sign-In account:</p>
+            @foreach (var requiredRole in @Model.requiredRoles)
+            {
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>@requiredRole</li>
+                </ul>
+            }
+        }
+        <h2 class="govuk-heading-l">Add a sub-service</h2>
+        <h3 class="govuk-heading-m">If you are an approver</h3>
+        <ol class="govuk-list govuk-list--number">
+            <li><a target="_blank" rel="external noopener noreferrer" href="@Model.DfeSignInUrl/auth/cb" id="dfESignInLink">Open DfE Sign-In (opens in new tab)</a>.</li>
+            <li>Edit services on your account.</li>
+            <li>Select Manage your education and skills funding.</li>
+            <li>Select the sub-service.</li>
+            <li>Submit amended service.</li>
+        </ol>
+        <h3 class="govuk-heading-m">If you are not an approver</h3>
+        <p class="govuk-label-m">Email an approver at your organisation to request a sub-service for your account.</p>
+        <p class="govuk-label-m"><a target="_blank" rel="external noopener noreferrer" href="@Model.DfeSignInUrl/organisations">See your organisation's approvers (opens in new tab)</a>.</p>
+    </div>
+</div>

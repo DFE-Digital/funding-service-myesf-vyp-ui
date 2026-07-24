@@ -1,0 +1,31 @@
+﻿
+@if (Model.Result.TotalRecords > 0)
+{
+    <nav class="pagination">
+
+        @if (Model.Result.ShouldDisplayPreviousPage)
+        {
+            <div>
+                <div class="previous">
+                    <a title="Navigate to previous page" class="page-navigation__btn previous" rel="prev" href=@Model.Result.PreviousPageLink id="prevButton">
+                        <span class="pagination-label">Previous </span>
+                        <span id="prevCounter" class="pagination-part-title">@(Model.Result.CurrentPage - 1) of @Model.Result.TotalPages</span>
+                    </a>
+                </div>
+            </div>
+            <div class="clear-child"></div>
+        }
+        @if (Model.Result.ShouldDisplayNextPage)
+        {
+            <div>
+                <div class="next">
+                    <a title="Navigate to next page" class="page-navigation__btn next" id="nextButton" rel="next" href="@Model.Result.NextPageLink">
+                        <span class="pagination-label">Next </span>
+                        <span id="nextCounter" class="pagination-part-title">@(Model.Result.CurrentPage + 1) of @Model.Result.TotalPages</span>
+                    </a>
+                </div>
+            </div>
+            <div class="clear-child"></div>
+        }
+    </nav>
+}

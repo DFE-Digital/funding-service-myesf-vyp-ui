@@ -1,0 +1,11 @@
+﻿@model PaymentTransactionsSortItemViewModel
+
+@if (Model.DisplayAscending)
+    {
+        <a href="@Url.Action("ChangeOrder", "PaymentTransactions")@Model.SortByAscendingURL" title="Click to view records in ascending order" class="sort-link"><span>&#x25B4;</span></a>
+}
+@if (Model.DisplayDescending)
+{
+    <a  href="@Url.Action("ChangeOrder", "PaymentTransactions")@Model.SortByDescendingURL" title="Click to view records in descending order" class="sort-link"><span>&#x25BE;</span></a>
+}
+

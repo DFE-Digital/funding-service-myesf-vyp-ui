@@ -1,0 +1,857 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutStaticContent.cshtml";
+}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <div class=" govuk-!-margin-bottom-8">
+            <span class="govuk-caption-xl">
+                Guidance
+            </span>
+            <h1 class="govuk-heading-l public">
+                View Your Payments
+            </h1>
+            <p class="help-lead-paragraph">Your payments and funding data explained</p>
+        </div>
+        <div class="help-page-content-publish " lang="en">
+            <table class="govuk-table">
+                <tbody>
+                    <tr>
+                        <td>Published:</td>
+                        <td>29 Apr 2020</td>
+                    </tr>
+                    <tr>
+                        <td>Last updated:</td>
+                        <td>15 Apr 2025</td>
+                    </tr>
+                    <tr>
+                        <td>From:</td>
+                        <td>
+                            <a class="govuk-link" target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/organisations/department-for-education">Department for Education (DfE)</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <div id="contents" class="help-nav-link">
+            <div class="responsive-bottom-margin">
+                <nav class="" role="navigation" data-module="track-click">
+                    <h2 class="help-nav-link-section-title govuk-heading-s ">Contents</h2>
+                    <ol class="govuk-list--bullet">
+                        <li class=""><a href="#service-overview" class="govuk-link">Service overview</a></li>
+                        <li><a href="#payment-history-view" class="govuk-link">Your payment history view</a></li>
+                        <li><a href="#payment-details-view" class="govuk-link">Your payment details view</a></li>
+                        <li><a href="#budget-group" class="govuk-link">Your budget groups</a></li>
+                        <li><a href="#payment-transaction-view" class="govuk-link">Your filter and export transactions view</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="help-page-content" id="content-details">
+            <div id="service-overview">
+                <h3 class="govuk-heading-l">Service overview</h3>
+                <p class="govuk-label">The View Your Payments service allows you to:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>View a list of all payments received from the DfE for the last 3 years.</li>
+                    <li>Filter your view of these payments by a selected date range.</li>
+                    <li>
+                        View a breakdown of each bank payment by transaction description and print or export this information.
+                    </li>
+                    <li>Filter and view transactions using a selected date range and export this information.</li>
+                </ul>
+            </div>
+            <div id="payment-history-view">
+                <h3 class="govuk-heading-l">Your payment history view</h3>
+                <span class="govuk-label">This page shows all of the payments made into your bank account from the DfE within the date range shown in the date selection filter.  You are able to view up to three years’ worth of payments from this page</span>
+                <div class="help-page-content-payment-summary"><img src="../images/PaymentSummary.png" /></div>
+
+                <p class="govuk-label">This page contains the following key features:</p>
+                <ul class="govuk-list govuk-list--number">
+                    <li><b>Date range filters</b>: Use these filters to display DfE payments from your own custom date range. Type in the desired date range of the payments you would like to view (from and then to) and then press the Apply button for these results. The Reset button will clear your custom date range and return to the default, which shows the most recent payments for the last 180 days.</li>
+                    <li><b>Payment date and amount</b>:  This is a list of all your payments from the DfE with the most recent first. The date indicates when the funds were transferred into your bank account. You can view up to three years’ worth of payment history by adjusting the date filters above this list.</li>
+                    <li><b>View payment details</b>: Use this link to access your ‘remittance’ view, this shows a more detailed breakdown of individual transactions for each payment. For more information, please go to Your payment details view.</li>
+                </ul>
+
+            </div>
+            <div id="payment-details-view">
+                <h3 class="govuk-heading-l">Your payment details view</h3>
+                <span class="govuk-label">This page is your ‘remittance’ from the DfE.  It shows a detailed breakdown of the individual payments that were made to your organisation’s bank account. This view includes buttons to Download as CSV or Download to PDF.</span>
+                <div class="help-page-content-payment-details"><img src="../images/PaymentDetail.png" /></div>
+                <p class="govuk-label">Each transaction row is made up of the following data columns:</p>
+                <ul class="govuk-list govuk-list--number">
+                    <li><b>Date</b>: the bank transfer payment date for these funds.</li>
+                    <li><b>Contract number</b>: the unique reference number for the contract reference that this transaction belongs to. You will find this in the Summary of Funding and Funding Agreements section of your contract documents.  More information on individual allocations can be found on your Allocation statements page.</li>
+                    <li><b>Budget group</b>: the budget group that this transaction has been assigned to. For more information, read Your budget groups.</li>
+                    <li>
+                        <b>Description</b>: the detailed explanation of what this transaction is for. Where applicable the funding description follows a standardised order to show:
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li>The age-band of learners that the payment is for.</li>
+                            <li>The name of the funding stream.</li>
+                            <li>The type of transaction. For example, capping, profile or reconciliation (see further notes on transaction types below for a full explanation of these terms).</li>
+                        </ul>
+                    </li>
+                    <li><b>Amount</b>: the exact sum of money that has been paid to you for this transaction.</li>
+                </ul>
+                <div id="transaction-capping">
+                    <p><b>Further notes on transaction types:</b></p>
+                    <h4 class="govuk-heading-s">Capping</h4>
+                    <p>Funding paid on actual delivery is capped to the maximum value of the funding stated in your contract for a given period or ‘financial envelope’.  The most common period is financial year, i.e. August to March as one financial envelope and April to July as another financial envelope. There is no funding flexibility across financial envelopes so under-delivery in one period cannot be used to fund over-delivery in another period.</p>
+                    <p>Capping is re-assessed after each ILR data submission, to take account of any changes to your contract value, actual delivery and/or DfE policy.  To achieve this, the payments are calculated in two steps: </p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>
+                            Payments are calculated based on your latest ILR data submission, bringing payments to-date in line with your actual delivery, and thus reversing out any previous capping values.
+                        </li>
+                        <li>capping is then calculated afresh based on the latest data you have provided.</li>
+                    </ul>
+                </div>
+                <div id="transaction-profile">
+                    <h4 class="govuk-heading-s">Profile</h4>
+                    <p>Where the term ‘Profile’ is shown next to a transaction this indicates that payment has been made based on the monthly delivery profile in your contract.</p>
+                </div>
+                <div id="transaction-reconciliation">
+                    <h4 class="govuk-heading-s">Reconciliation</h4>
+                    <p>Where the term ‘Reconciliation’ is shown next to a transaction this indicates that payment has been made based on the actual delivery data you have submitted in the ILR.  This can also apply to transactions that have been generated due to a funding claim reconciliation (if any of the funding you receive is subject to funding claims).  Funding claim reconciliation transactions usually appear on your remittances in December and/or January.</p>
+                </div>
+            </div>
+            <div id="budget-group">
+                <h3 class="govuk-heading-l">Your budget groups</h3>
+                <p class="govuk-label">Below is a list of all budget groups that are used to pay providers. Currently, budget groups are only available for post-16 funding.  Please click in each budget group heading to expand the view and see the contract allocations it contains.</p>
+                <div id="budget-group-list">
+                    <div id="16-18-traineeships" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    16-18 Traineeships
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr class="govuk-summary-list__row">
+                                            <td>16-18 Traineeships</td>
+                                            <td> 16TR</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/delivering-traineeships-through-efa-funding">ESFA funded 16 to 18 traineeships</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="advanced-learner-loans" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Advanced Learner Loans
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>24+ Advanced Learning Loans Bursary</td>
+                                            <td>ALLB</td>
+                                            <td>2015/16</td>
+                                            <td rowspan="2">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/advanced-learner-loan/bursary-fund">Advanced learner loans: Bursary fund</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Advanced Learner Loans Bursary</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>ALLB</li>
+                                                    <li>ALLC(grant-funded only)</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                    <li>2019/20</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Career Learning Pilots</td>
+                                            <td>CLP</td>
+                                            <td>2018/19</td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/career-learning-pilot-technical-guidance-2018-to-2019">Career learning pilot technical guidance 2018 to 2019</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="apprenticeship-gran-for-employers" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Apprenticeship Grant for Employers
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Apprenticeship Grant for Employers</td>
+                                            <td>AGE</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/apprenticeship-funding-rules">Apprenticeship funding rules</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="apprenticeship-levy-appservice-employers" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Apprenticeship (Employer on App service) Levy
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Apprenticeship Levy</td>
+                                            <td>LEVY</td>
+                                            <td>From May 2017</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/apprenticeship-funding">Apprenticeship funding</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/apprenticeship-funding-rules">Apprenticeship funding rules</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="apprenticeship-non-levy-appservice-employers" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Apprenticeship (Employer on App service) Non-Levy
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Non-Levy Apprenticeships</td>
+                                            <td>NLA</td>
+                                            <td>From Jan 2020</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/apprenticeship-funding">Apprenticeship funding</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/apprenticeship-funding-rules">Apprenticeship funding rules</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="apprenticeship-carry-in" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Apprenticeships Carry-in
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>16-18 Apprenticeships</td>
+                                            <td>16AP</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                            <td rowspan="7">
+                                                <ul class="govuk-list">
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/apprenticeship-funding">Apprenticeship funding</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/apprenticeship-funding-rules">Apprenticeship funding rules</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="3">Adult Apprenticeships</td>
+                                            <td>AATO (ILPs only)</td>
+                                            <td>2016/17</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AAC (grant-funded only)</td>
+                                            <td>2016/17</td>
+                                        </tr>
+                                        <tr>
+                                            <td>AAPP</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>16-18 Non-Levy Apprenticeships</td>
+                                            <td>16NL</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Non-Levy Apprenticeships</td>
+                                            <td>ANL</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Apprenticeships Carry-In</td>
+                                            <td>APPS</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2018/19</li>
+                                                    <li>2019/20</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="european-social-fund" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    European Social Fund
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>European Social Fund 2014-20</td>
+                                            <td>ESF</td>
+                                            <td>From 2014</td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/esf-funding-rules">ESF funding rules</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="national-careers-service" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    National Careers Service
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Enabling Apprenticeships</td>
+                                            <td>NCSA</td>
+                                            <td>2017/18</td>
+                                            <td rowspan="9">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/national-careers-service-area-based-contracts-funding-rules">National careers service area based contracts funding rules</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Support and Enhance Existing Delivery In-Community Funding</td>
+                                            <td>NCSD</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Inspiration and Employer Engagement in Custody Activity</td>
+                                            <td>NCSE</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Fuller Working Lives 50+</td>
+                                            <td>NCSF</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS In Custody</td>
+                                            <td>NCSP</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Apprenticeship Specialist Intervention and Support Team</td>
+                                            <td>NCSS</td>
+                                            <td>2017/18</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Inspiration Activity</td>
+                                            <td>NCSI</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCS Development</td>
+                                            <td>NCSV </td>
+                                            <td>2018/19</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCSIn the Community</td>
+                                            <td>NCSC</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                    <li>2018</li>
+                                                    <li>2019/20</li>
+                                                    <li>2020/21</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="non-procured-adult-education-budget" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Non-Procured Adult Education Budget
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">Adult Skills</td>
+                                            <td>ASC (grant-funded only)</td>
+                                            <td>2015/16</td>
+                                            <td rowspan="4">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/sfa-funding-rules-2015-to-2016">SFA funding rules: 2015 to 2016</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ASTO (ILPs only)</td>
+                                            <td>2015/16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Community Learning</td>
+                                            <td>CL</td>
+                                            <td>2015/16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discretionary Learner Support</td>
+                                            <td>DLS</td>
+                                            <td>2015/16</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Traineeships and Other Learning</td>
+                                            <td>AEO (ILPs only)</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                </ul>
+                                            </td>
+                                            <td rowspan="4">
+                                                <ul class="govuk-list">
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-funding-rules">Adult education budget funding rules</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-funding-rates-and-formula-2017-to-2018">Adult education budget: funding rates and formula 2017 to 2018</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-funding-rules-2018-to-2019">Adult education budget funding and performance management rules 2018 to 2019</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Learner Support</td>
+                                            <td>AELS</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget</td>
+                                            <td>AEC (grant-funded only)</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Community Learning</td>
+                                            <td>AECL</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2016/17</li>
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Adult Skills and Community Learning</td>
+                                            <td>AECA (grant-funded only)</td>
+                                            <td>2019/20</td>
+                                            <td rowspan="2">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-aeb-funding-rules-2019-to-2020">Adult education budget (AEB) funding rules 2019 to 2020</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - 19 to 24 Traineeships</td>
+                                            <td>AECT (grant-funded only)</td>
+                                            <td>2019/20</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="procured-adult-education-budget" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Procured Adult Education Budget
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Learner Support</td>
+                                            <td>AEBL</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                            <td rowspan="3">
+                                                <ul class="govuk-list">
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-funding-rates-and-formula-2017-to-2018">Adult education budget: funding rates and formula 2017 to 2018</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-funding-rules-2018-to-2019">Adult education budget funding and performance management rules 2018 to 2019</a></li>
+                                                    <li><a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-aeb-funding-rules-2019-to-2020">Adult education budget (AEB) funding rules 2019 to 2020</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Traineeships and Other Learning</td>
+                                            <td>AEBT</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Community Learning</td>
+                                            <td>AEBC</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2017/18</li>
+                                                    <li>2018/19</li>
+                                                    <li>2019/20</li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Adult Skills Learner Support </td>
+                                            <td>AEAL</td>
+                                            <td>2019/20</td>
+                                            <td rowspan="4">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/adult-education-budget-aeb-funding-rules-2019-to-2020">Adult education budget (AEB) funding rules 2019 to 2020</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - Adult Skills</td>
+                                            <td>AEBA</td>
+                                            <td>2019/20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - 19 to 24 Traineeships</td>
+                                            <td>AEBR</td>
+                                            <td>2019/20</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Education Budget - 19 to 24 Traineeships Learner Support</td>
+                                            <td>AETL</td>
+                                            <td>2019/20</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="procured-non-levy-apprenticeships" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Procured Non-Levy Apprenticeships
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>16-18 Non-Levy Apprenticeships</td>
+                                            <td>YNLP</td>
+                                            <td>From Jan 2018</td>
+                                            <td rowspan="2">
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/apprenticeship-funding">Apprenticeship funding</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adult Non-Levy Apprenticeships</td>
+                                            <td>ANLP</td>
+                                            <td>From Jan 2018</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="employer-ownership-pilot" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Employer Ownership Pilot
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Employer Ownership Pilot</td>
+                                            <td>EOP1</td>
+                                            <td></td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/publications/employer-ownership-of-skills-pilot">Employer Ownership of Skills pilot</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="offender-learning-and-skills-strategy" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Offender Learning and Skills Strategy
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Offender Learning and Skills Strategy</td>
+                                            <td>OLAS</td>
+                                            <td>
+                                                <ul class="govuk-list">
+                                                    <li>2015/16</li>
+                                                    <li>2016/17</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/government/collections/olass-funding-rules-and-guidance">OLASS funding: rules and guidance</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                    <div id="college-collaboration-fund" class="govuk-caption-xl">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    College Collaboration Fund
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                <table class="govuk-table help-page-table">
+                                    <tbody class="govuk-table__body">
+                                        <tr class="govuk-table__header">
+                                            <td><b>Funding Stream</b></td>
+                                            <td><b>Contract Ref Prefix</b></td>
+                                            <td><b>Applicable Periods </b></td>
+                                            <td><b><span>Guidance</span></b> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>College Collaboration Fund</td>
+                                            <td>CCF</td>
+                                            <td>2020/21</td>
+                                            <td>
+                                                <a target="_blank" rel="external noopener noreferrer" title="This will open in a new window" href="https://www.gov.uk/guidance/college-collaboration-fund-ccf#payment-and-repayment-of-funding">College Collaboration Fund</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+            <div id="payment-transaction-view">
+                <h3 class="govuk-heading-l">Your filter and export transactions view</h3>
+                <span class="govuk-label">This page allows you to filter, view and export your detailed payment transactions for a custom date range shown in the date selection filter. You are able to view and export up to three years’ worth of transactions from this page. This view includes a button to download the transactions as a CSV file.</span>
+                <div class="help-page-content-payment-transaction"><img src="../images/PaymentTransactions.png" /></div>
+                <p class="govuk-label">This page contains the following key features:</p>
+                <ul class="govuk-list govuk-list--number">
+                    <li><b>Date range filters</b>: Use these filters to display transactions from your own custom date range. Type in the desired date range of the transactions you would like to view (from and then to) and then press the Apply button to display these results. The Reset button will clear your custom date range and return to the default, which shows the most recent transactions for the last 30 days.</li>
+                    <li><b>Transaction description filters    </b>: Use this filter to display specific transactions from the set date range. Click inside the search box to show a drop down of all your available transaction descriptions or type the first few letters of the transaction description that you wish to search for. Click on an item in the drop down list to make a selection and add to the filter box. To remove the item simply click the ‘X’ in the blue box. Once all selections have been made press the Apply button to display these results. Note- selected transactions items will not display if this data does not exist for the date range that has been set.</li>
+                    <li><b>Budget group summary section</b>:  This section shows a total of all payments received for the selected date range. Click the ‘+’ to expand the summary and display totals for each Budget group for the transactions in the selected date range.</li>
+
+                    <p class="govuk-label">Each transaction row is made up of the following data columns:</p>
+
+                    <li><b>Date</b>: the bank transfer payment date for these funds.</li>
+                    <li><b>Contract number</b>: the unique reference number for the contract reference that this transaction belongs to. You will find this in the Summary of Funding and Funding Agreements section of your contract documents. More information on individual allocations can be found on your Allocation statements page. </li>
+                    <li><b>Budget group</b>: the budget group that this transaction has been assigned to. For more information, read Your budget groups.</li>
+                    <li>
+                        <b>Description</b>: the detailed explanation of what this transaction is for. Where applicable the funding description follows a standardised order to show:
+                        <ul class="govuk-list govuk-list--bullet">
+                            <li> The age-band of learners that the payment is for.</li>
+                            <li> The name of the funding stream.</li>
+                            <li> The type of transaction. For example, capping, profile or reconciliation (see further notes on transaction types below for a full explanation of these terms).</li>
+                        </ul>
+                    </li>
+                    <li><b>Amount</b>: the exact sum of money that has been paid to you for this transaction.</li>
+                </ul>
+            </div>
+        </div>
+        <div data-sticky-element="" class="help-page-content-list-with-body__link-wrapper help-stuck-to-window">
+            <div class="help-page-content-list-with-body__link-container">
+                <a class="govuk-link .help-page-content-back-to-top dont-print" href="#contents">
+                    <svg class=".help-page-content-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
+                        <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+                    </svg>
+                    Contents
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

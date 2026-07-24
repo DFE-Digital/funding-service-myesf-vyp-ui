@@ -1,0 +1,27 @@
+.toggle-menu{
+  display: block;
+  text-decoration: none;
+  color: $govuk-text-colour;
+  &:hover{
+    text-decoration: none;
+    color: $govuk-text-colour;
+  }
+}
+.close-close-menu{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  width: 100%;
+  height: 100%;
+  background: #0b0c0c;
+  opacity: 0.1;
+}
+.govuk-accordion__section-button.govuk-link{
+  text-decoration: underline;
+  color: $govuk-link-colour;
+  &:hover{
+    color: $govuk-link-hover-colour;
+  }
+}

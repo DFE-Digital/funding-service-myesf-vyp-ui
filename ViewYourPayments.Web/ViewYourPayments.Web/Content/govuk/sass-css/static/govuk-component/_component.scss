@@ -1,0 +1,14 @@
+// Container file for all govuk-component specific styling
+
+// Component specifc govuk_frontend_toolkit includes
+@import "../../frontendtoolkit/design-patterns/alpha-beta";
+
+// Components styles
+@import "alpha-label";
+@import "beta-label";
+@import "document-footer";
+@import "govspeak";
+@import "metadata";
+@import "title";
+@import "option-select";
+@import "previous-and-next-navigation";

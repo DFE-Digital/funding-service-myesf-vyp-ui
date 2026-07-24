@@ -1,0 +1,40 @@
+// global styles for <a> and <p> tags
+$govuk-global-styles: true;
+
+// We can't mount GOV.UK Frontend's assets at root as it's done automatically by the extensions framework.
+$govuk-assets-path: '/assets/';
+
+// Import GOV.UK Frontend and any extension styles if extensions have been configured
+@import "node_modules/govuk-frontend/govuk/all";
+
+// Plugins and third party includes
+@import "plugins/fastselect";
+
+// Helpers that aren't in Frontend
+@import "helpers/page-reset";
+@import "helpers/fieldset-reset";
+@import "helpers/link-reset";
+@import "helpers/large-screen-width";
+@import "helpers/arrows";
+
+
+// Patterns that aren't in Frontend
+@import "patterns/step-by-step-navigation";
+@import "patterns/task-list";
+@import "patterns/related-items";
+
+// Components that aren't in Frontend
+@import "components/cookie-banner";
+@import "components/sub-nav";
+@import "components/tables";
+@import "components/grid";
+@import "components/filter-component";
+@import "components/pagination";
+@import "components/help-page";
+@import "components/accordian";
+@import "components/error-page";
+
+// Vendor components
+@import "components/tiles";
+
+// Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you

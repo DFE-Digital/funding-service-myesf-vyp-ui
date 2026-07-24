@@ -1,0 +1,72 @@
+﻿@model PaymentTransactionResultViewModel
+@using ViewYourPayments.Web.Shared
+@using ViewYourPayments.Core.Enums 
+
+    <div class="govuk-grid-row" id="transactions-result">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-filter-group__container buttons">
+                <a asp-controller="PaymentTransactions" asp-action="DownloadCsv" download data-module="govuk-button" class="govuk-button govuk-button--secondary govuk-!-margin-right-1">
+                    Download as CSV
+                </a>
+            </div>
+            <table id="remittance-table" class="govuk-table govuk-table-striped grid">
+                <caption class="govuk-table__caption govuk-visually-hidden">Transactions</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row btn-group" id="sorts2">
+                        <th scope="col" class="govuk-table__header contractNumber" data-sort-value="Date">
+                            <span class="table-header-with-sort">
+                                Date
+                                <partial name="_sortItem" model='new PaymentTransactionsSortItemViewModel { PrimarySortField = Model.PrimarySortField, SortDirection = Model.PrimarySortDirection, CurrentField = PaymentTransactionSortFields.PaymentDate }' />
+                            </span>
+                         </th>
+                        <th scope="col" class="govuk-table__header contractNumber" data-sort-value="contractNumber">
+                            <span class="table-header-with-sort">
+                                Contract number
+                                <partial name="_sortItem" model='new PaymentTransactionsSortItemViewModel { PrimarySortField = Model.PrimarySortField, SortDirection = Model.PrimarySortDirection, CurrentField = PaymentTransactionSortFields.Contract }' />
+                            </span>
+                            </th>
+                        <th scope="col" class="govuk-table__header fundingGroup" data-sort-value="fundingGroup">
+                            <span class="table-header-with-sort">
+                                Budget Group
+                                <partial name="_sortItem" model='new PaymentTransactionsSortItemViewModel { PrimarySortField = Model.PrimarySortField, SortDirection = Model.PrimarySortDirection, CurrentField = PaymentTransactionSortFields.BudgetGroup }' />
+                            </span>
+                        </th>
+                        <th scope="col" class="govuk-table__header description" data-sort-value="description">
+                            <span class="table-header-with-sort">
+                                Description
+                                <partial name="_sortItem" model='new PaymentTransactionsSortItemViewModel { PrimarySortField = Model.PrimarySortField, SortDirection = Model.PrimarySortDirection, CurrentField = PaymentTransactionSortFields.PaymentLineDescription }' />
+                            </span>    
+                        </th>
+                        <th scope="col" class="govuk-table__header govuk-table__cell--numeric govuk-!-font-weight-bold transactionAmount" data-sort-value="transactionAmount">
+                            <span class="table-header-with-sort">
+                                Amount
+                                <partial name="_sortItem" model='new PaymentTransactionsSortItemViewModel { PrimarySortField = Model.PrimarySortField, SortDirection = Model.PrimarySortDirection, CurrentField = PaymentTransactionSortFields.LineAmount }' />
+                            </span>
+                         </th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body no-transition tb-data" id="isotope2" style="position: relative; height: 0px;">
+                    @foreach (var paymentLine in @Model.PaymentTransactions)
+                    {
+                        <tr class="govuk-table__row grid-item">
+                            <td class="govuk-table__cell contractNumber">
+                                @String.Format("{0:dd/MM/yyyy}", paymentLine.PaymentDate)
+                            </td>
+                            <td class="govuk-table__cell contractNumber">
+                                @paymentLine.ContractNumber
+                            </td>
+                            <td class="govuk-table__cell fundingGroup">
+                                @paymentLine.BudgetDescription
+                            </td>
+                            <td class="govuk-table__cell description">
+                                @paymentLine.PaymentLineDescription
+                            </td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric transactionAmount">
+                                @paymentLine.PaymentLineAmount.ToCurrency()
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</div>

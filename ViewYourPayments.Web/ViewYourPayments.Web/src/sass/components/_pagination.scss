@@ -1,0 +1,52 @@
+﻿.pagination {
+    clear: both !important;
+
+    a.previous {
+        display: block;
+        float: left;
+        width: 100px;
+        height: 50px;
+        content: " ";
+        text-align: left;
+        text-decoration: none;
+    }
+
+    .pagination-label {
+        font-size: 1.6em;
+        text-decoration: none;
+    }
+
+    .pagination-part-title {
+        font-size: 1em;
+        text-decoration: underline;
+    }
+
+    a.next {
+        display: block;
+        float: right;
+        width: 65px;
+        height: 50px;
+        content: " ";
+        text-align: right;
+        text-decoration: none;
+    }
+
+    &-link-no-underLine {
+        color: #005ea5;
+        text-decoration: none;
+    }
+
+    &-top-margin {
+        margin-top: 30px;
+        border-bottom: 1px solid #dee0e2;
+        padding-bottom: 30px;
+    }
+
+    &-next-page-link {
+        padding: 5px;
+    }
+
+    ul {
+        list-style: none;
+    }
+}

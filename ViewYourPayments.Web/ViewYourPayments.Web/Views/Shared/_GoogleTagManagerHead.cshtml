@@ -1,0 +1,58 @@
+﻿<script>
+
+    // Set to the same value as the web property used on the site
+    var gaProperty = 'GTM-WWWHFNF';
+    var disableStr = 'ga-disable-' + gaProperty;
+
+    gaOptOut();
+
+    // Enable tracking only if the opt-in cookie exists.
+    let cookiesPreferencesSet = document.cookie.indexOf("cookies_preferences_set=true") > -1;
+    if (cookiesPreferencesSet) {
+
+        let cookiesPolicyValue = getCookieValue("cookies_policy");
+
+        if (cookiesPolicyValue != "") {
+
+            let cookiesPolicy = JSON.parse(cookiesPolicyValue);
+
+            if (cookiesPolicy.usage == true) {
+                gaOptIn();
+            }
+        }
+    }
+
+    // Opt-in function
+    function gaOptIn() {
+        window[disableStr] = false;
+    }
+
+    // Opt-out function
+    function gaOptOut() {
+        window[disableStr] = true;
+    }
+
+    function getCookieValue(cookieName) {
+        var name = cookieName + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+</script>
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WWWHFNF');</script>
+<!-- End Google Tag Manager -->

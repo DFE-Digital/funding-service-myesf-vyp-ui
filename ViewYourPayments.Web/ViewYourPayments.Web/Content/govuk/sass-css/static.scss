@@ -1,0 +1,21 @@
+/* govuk_frontend_toolkit includes */
+@import "static/header-footer-only";
+
+@import "frontendtoolkit/shims";
+@import "frontendtoolkit/design-patterns/buttons";
+
+/* local styleguide includes */
+@import "static/styleguide/conditionals2";
+
+/* styles */
+@import "static/helpers/buttons";
+@import "static/helpers/core";
+@import "static/helpers/footer";
+@import "static/helpers/header";
+@import "static/helpers/multi-step";
+@import "static/helpers/notifications";
+@import "static/helpers/organisations";
+@import "static/helpers/publisher";
+@import "static/helpers/text";
+
+@import "static/static-pages/error-pages";

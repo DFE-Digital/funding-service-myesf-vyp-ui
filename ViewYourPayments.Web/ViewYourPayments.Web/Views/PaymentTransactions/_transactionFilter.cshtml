@@ -1,0 +1,35 @@
+﻿
+@model ViewYourPayments.Web.Models.PaymentTransactionFilterViewModel
+
+    <form class="govuk-form-group" id="datePicker" method="post">
+        <partial name="_DatePicker" for="DateRange" />
+
+        <fieldset id="description-filter" class="govuk-reset-fieldset govuk-grid-column-full quicksearch-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <h2 class="govuk-fieldset__heading">
+                    Filter by transaction description
+                </h2>
+                <span class="govuk-hint">
+                    Begin typing, and either add from the list that appears or apply your own keywords. You can add multiple terms.
+                </span>
+            </legend>
+                <div class="quicksearch govuk-form-group">
+                    <input type="text" multiple class="govuk-input govuk-grid-column-full multipleSelect"
+                           data-url="@Model.GetUniqueTransctionDescriptionsUrl" data-load-once="true"
+                           id="searchTerms" name="searchTerms" data-filter-group="description" value="@Model.SearchTerms"
+                           data-initial-value="@Model.CurrentSearchTermsKeyValuePairs"
+                           data-user-option-allowed="true" placeholder=" ">
+                </div>
+        </fieldset>
+        <div class="govuk-grid-column-full filter-bottom-group">
+            <button class="govuk-button" data-module="govuk-button" id="apply-payment-filters" type="submit" formaction='@Url.Action("Index","PaymentTransactions")'>
+                Apply
+            </button>
+
+            <button class="govuk-button govuk-button--secondary  govuk-!-margin-right-1" formnovalidate type="submit" id="reset-date-range"
+                    formaction='@Url.Action("Reset","PaymentTransactions")' formmethod="post"
+                    data-module="govuk-button">
+                Reset
+            </button>
+        </div>
+    </form>

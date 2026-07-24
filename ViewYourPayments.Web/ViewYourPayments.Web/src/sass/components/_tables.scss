@@ -1,0 +1,43 @@
+.govuk-table-striped {
+  tr:nth-child(even) {
+    background-color: govuk-colour("light-grey");
+  }
+
+  tr:nth-child(odd) {
+    //background-color: #FFF;
+  }
+}
+
+.totals-row{
+  background: white;
+  padding-top: 1px;
+  td, th{
+    border-top: 2px solid;
+  }
+  &:last-child{
+    td, th{
+      border-top: 2px solid;
+    }
+  }
+}
+.govuk-table__cell{
+  &--bottom{
+    vertical-align: bottom;
+  }
+}
+
+.govuk-table__cell{
+    &.transactionDate, &.govuk-table__cell--numeric {
+        white-space: nowrap;
+    }
+}
+
+.budget-group-table {
+    .govuk-table__cell {
+        width: 35%;
+    }
+
+    .govuk-table__cell--numeric {
+        width: 15%;
+    }
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "outputFileName": "wwwroot/css/cssScreen.css",
+    "inputFiles": [
+      "Content/govuk/govuk-template.css",
+      "Content/govuk/govuk-template2.css",
+      "Content/govuk/fonts.css",
+      "Content/govuk/sass-css/elements-page.css",
+      "Content/govuk/sass-css/static.css",
+      "Content/govuk/toolkit-2018.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/cssPrint.css",
+    "inputFiles": [
+      "Content/govuk/govuk-template-print.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/vyp.js",
+    "inputFiles": [
+      "wwwroot/js/application.js",
+      "wwwroot/js/fastsearch.js",
+      "wwwroot/js/fastselect.js",
+      "wwwroot/js/site.js",
+      "wwwroot/js/auto-store-data.js",
+      "wwwroot/js/date-validation.js",
+      "wwwroot/js/cookies.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

@@ -1,0 +1,94 @@
+﻿@model PaymentsDetailsPageViewModel
+@using ViewYourPayments.Web.Shared
+@{
+    ViewData["Title"] = @Model.PageName;
+}
+@Html.AntiForgeryToken()
+@if (!Model.Result.PaymentLines.Any())
+{
+    <partial name="_NoRecordView" />
+}
+else
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="header-wrapper">
+                <h1 class="govuk-heading-xl">
+                    @Model.PageName
+                    <p class="govuk-caption-xl">
+                        A list of the transactions that made up this payment from the DfE for @String.Format("{0:dd MMMM yyyy}", @Model.Result.PaymentDate)
+                    </p>
+                    <span class="govuk-caption-xl print-hidden">
+                        <details class="govuk-details" data-module="govuk-details">
+                            <summary class="govuk-details__summary">
+                                <span class="govuk-details__summary-text">
+                                    Help using this page
+                                </span>
+                            </summary>
+                            <div class="govuk-details__text">
+                                The payment details view shows the funding you have received into your bank from the DfE for the date given above.
+                                <p>The following details are displayed for each payment:</p>
+                                <ul>
+                                    <li><b>Contract number</b>: The contract allocation number for each payment.</li>
+                                    <li><b>Budget group</b>: The budget group that your payment falls into.</li>
+                                    <li><b>Description</b>: What the transaction is for.</li>
+                                    <li><b>Amount</b>: The amount being paid for this transaction.</li>
+                                </ul>
+                                <div>
+                                    For more detailed information about this page, including budget groups and transaction descriptions, please read the <a asp-controller="Content" asp-action="PaymentHelpGuidelines" asp-fragment="payment-details-view" target="_blank" rel="external noopener noreferrer">View your payments guidance.</a>
+                                </div>
+                            </div>
+                        </details>
+                    </span>
+                </h1>
+            </div>
+            <div class="govuk-filter-group__container buttons print-hidden">
+                <a  href="@Model.PaymentIdentifier/downloadCsv" download data-module="govuk-button" class="govuk-button govuk-button--secondary govuk-!-margin-right-1">
+                    Download as CSV
+                </a>
+                <a href="javascript:void(0);" onclick="window.print();"  class="govuk-button govuk-button--secondary" download>
+                    Save or print details
+                </a>
+            </div>
+            <table id="remittance-table" class="govuk-table govuk-table-striped grid">
+                <caption class="govuk-table__caption govuk-visually-hidden">Transactions</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row btn-group" id="sorts2">
+                        <th scope="col" class="govuk-table__header contractNumber" data-sort-value="contractNumber">Contract number</th>
+                        <th scope="col" class="govuk-table__header fundingGroup" data-sort-value="fundingGroup">Budget Group</th>
+                        <th scope="col" class="govuk-table__header description" data-sort-value="description">Description</th>
+                        <th scope="col" class="govuk-table__header govuk-table__cell--numeric govuk-!-font-weight-bold transactionAmount" data-sort-value="transactionAmount">
+                            Amount
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body no-transition tb-data" id="isotope2">
+                    @foreach (var paymentLine in @Model.Result.PaymentLines)
+                    {
+                        <tr class="govuk-table__row grid-item">
+                            <td class="govuk-table__cell contractNumber">
+                                @paymentLine.ContractNumber
+                            </td>
+                            <td class="govuk-table__cell fundingGroup">
+                                @paymentLine.BudgetDescription
+                            </td>
+                            <td class="govuk-table__cell description">
+                                @paymentLine.PaymentLineDescription
+                            </td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric transactionAmount">
+                                @paymentLine.PaymentLineAmount.ToCurrency()
+                            </td>
+                        </tr>
+                    }
+                    <tr class="payment-details-total">
+                        <td scope="col" colspan="3" class="govuk-table__header">Total Amount</td>
+                        <td scope="col" class="govuk-table__header govuk-table__header--numeric">@Model.Result.PaymentAmount.ToCurrency()</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="print-hidden">
+        <a href="@Model.BackToPaymentSummaryPageUrl" class="govuk-back-link"> Back to payment history</a>
+    </div>
+}

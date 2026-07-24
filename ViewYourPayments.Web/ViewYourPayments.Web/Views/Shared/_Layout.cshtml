@@ -1,0 +1,69 @@
+﻿@model BasePageViewModel
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+
+    <title>View Your Payments - @Model.PageName</title>
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+    <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
+
+    <!--[if lte IE 8]><link href="/stylesheets/application-ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link href="/stylesheets/application.css" media="all" rel="stylesheet" type="text/css"><!--<![endif]-->
+    <link href="/stylesheets/cookies.css" media="all" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/govuk-override.css" media="all" rel="stylesheet" type="text/css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <partial name="_GoogleTagManagerHead" />
+    <partial name="_MSClarity" model="@Model.MSClarityId" />
+</head>
+<body class="govuk-template__body">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <partial name="_GoogleTagManagerBody" />
+    <partial name="_GlobalCookieMessage" />
+    <div id="skiplink-container">
+        <div>
+            <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
+        </div>
+    </div>
+
+    <partial name="_GovUkHeader.cshtml" />
+
+    <div class="govuk-width-container">
+        <partial name="_PhaseBanner" />
+        @if (Model.IsAuthorisedUser)
+        {
+            <partial name="_Subnavigation" model="Model" />
+        }
+        @if (Model.DisplayHomePageLink)
+        {
+            <div class="print-hidden">
+                <a href="@Model.MyEsfUrl/home" class="govuk-subnav-home-link">Home</a>
+            </div>
+        }
+    </div>
+
+    <!--end global-header-bar-->
+    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+
+        <div class="govuk-width-container">
+            @RenderBody()
+        </div>
+    </main>
+    <partial name="_Footer.cshtml" />
+    @RenderSection("scripts", false)
+
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/govuk-frontend/govuk/all.js"></script>
+    <script src="~/js/vyp.min.js" asp-append-version="true"></script>
+    <script src="~/js/govuk-frontend.min.js"></script>
+    <script>window.GOVUKFrontend.initAll()</script>
+    <script>$('#searchTerms').fastselect();</script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
