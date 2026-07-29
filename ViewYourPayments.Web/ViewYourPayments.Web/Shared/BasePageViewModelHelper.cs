@@ -11,7 +11,7 @@ namespace ViewYourPayments.Web.Shared
             if (viewModel == null) return;
             viewModel.ProviderName = user.ProviderName;
             viewModel.UkprnNumber = user.Ukprn.ToString();
-            viewModel.ChangeProviderUrl  = $"{appSettings.MyEsfUrl}/provider-search/stop-impersonating-provider";
+            viewModel.ChangeProviderUrl = $"{appSettings.MyEsfUrl}/provider-search/stop-impersonating-provider";
             viewModel.ViewYourSubservicesUrl = $"{appSettings.MyEsfUrl}/view-your-subservices";
             viewModel.PageName = pageName;
             viewModel.SignoutUrl = "account/logout";

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewYourPayments.Core.Enums.Loggin
+﻿namespace ViewYourPayments.Core.Enums.Loggin
 {
     /// <summary>
     /// Enumeration representing possible logging categories.

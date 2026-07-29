@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Core.Models.User;
 using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Shared;
 

@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ViewYourPayments.Web.Models
 {
     public class PaymentDetailViewModel
     {
-        
+
         public string PaymentLineIdentifier { get; set; }
 
         public DateTime PaymentDate { get; set; }

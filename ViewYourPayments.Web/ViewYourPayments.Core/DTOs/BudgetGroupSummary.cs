@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ViewYourPayments.Core.DTOs
+﻿namespace ViewYourPayments.Core.DTOs
 {
     public class BudgetGroupSummary
     {

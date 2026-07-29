@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ViewYourPayments.Web.Extensions
 {
-    public  static class AppBuilderResponseHeaderExtension
+    public static class AppBuilderResponseHeaderExtension
     {
         public static void PreventDefaultNoCachingCacheHeaders(this IApplicationBuilder app)
         {

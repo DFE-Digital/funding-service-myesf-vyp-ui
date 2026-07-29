@@ -1,18 +1,16 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Web.Services.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Models;
-using ViewYourPayments.Web.Shared;
-using ViewYourPayments.Core.Interfaces.Services;
 using System.Linq;
-using ViewYourPayments.Web.Filters;
+using System.Threading.Tasks;
+using ViewYourPayments.Core.Interfaces;
+using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Models.AppConfig;
 using ViewYourPayments.Core.Models.User;
-using System.Security.Policy;
+using ViewYourPayments.Web.Filters;
+using ViewYourPayments.Web.Models;
+using ViewYourPayments.Web.Services.Interfaces;
+using ViewYourPayments.Web.Shared;
 
 namespace ViewYourPayments.Web.Controllers
 {
@@ -85,8 +83,8 @@ namespace ViewYourPayments.Web.Controllers
                 Amount = paymentData.PaymentAmount
             });
 
-            var csvContent =  _documentManagementService.TransformRecordsToCsvBytes(csvdata);
-            
+            var csvContent = _documentManagementService.TransformRecordsToCsvBytes(csvdata);
+
             var fileName = $"{paymentData.PaymentDate:dd MMMM yyyy} Payment - {paymentData.VendorNumber}.csv";
             return SaveFile(csvContent, "text/csv", fileName);
         }

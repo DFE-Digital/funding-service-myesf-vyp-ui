@@ -1,4 +1,3 @@
-using System.Linq;
 using ViewYourPayments.Core.Models.DFESignIn;
 
 namespace ViewYourPayments.Core.Extensions

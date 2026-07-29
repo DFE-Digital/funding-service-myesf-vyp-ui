@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using ViewYourPayments.Core.DTOs;
 using ViewYourPayments.Core.Enums;
 using ViewYourPayments.Core.Interfaces;
@@ -58,7 +57,7 @@ namespace ViewYourPayments.Web.Controllers
         /// <param name="page">Selected page number.</param>
         /// <param name="isPageReset">IsPageReset flag to identify that user has requested clear session value and reset search params.</param>
         /// <returns>Returns PaymentTransaction page.</returns>
-        public async Task<IActionResult> Index([FromForm]DatePickerViewModel dateRange, [FromForm] string  searchTerms = null, [FromQuery] int page = 0, bool isPageReset = false)
+        public async Task<IActionResult> Index([FromForm] DatePickerViewModel dateRange, [FromForm] string searchTerms = null, [FromQuery] int page = 0, bool isPageReset = false)
         {
             var user = new ClaimsUser(HttpContext.User);
             var appSession = GetUserSessionDetails();
@@ -81,14 +80,14 @@ namespace ViewYourPayments.Web.Controllers
                             DateTime.UtcNow.AddDays(-1 * _appSettings.Value.InitialTransactionViewRecordsDuration), DateTime.UtcNow, page);
             }
 
-           var  transactionFilterViewModel = new PaymentTransactionFilterViewModel
+            var transactionFilterViewModel = new PaymentTransactionFilterViewModel
             {
                 DateRange = new DatePickerViewModel(paymentsFilter.FromDate, paymentsFilter.ToDate),
                 SearchTerms = paymentsFilter.SearchTerms
             };
             appSession.PaymentTransactionsFilter = paymentsFilter;
             var viewModel = await GetPaymentTransactionsData(transactionFilterViewModel, appSession, user, paymentsFilter.PrimarySortField, paymentsFilter.SortDirection);
-            return  View("index", viewModel); 
+            return View("index", viewModel);
         }
 
         /// <summary>
@@ -108,7 +107,7 @@ namespace ViewYourPayments.Web.Controllers
         /// <param name="sortDirection">sort direction.</param>
         /// <returns>Return transaction page with updated result.</returns>
         [HttpGet]
-        public async Task<IActionResult> ChangeOrder([FromQuery]string fieldName, [FromQuery]string sortDirection)
+        public async Task<IActionResult> ChangeOrder([FromQuery] string fieldName, [FromQuery] string sortDirection)
         {
             var user = new ClaimsUser(HttpContext.User);
             var appSession = GetUserSessionDetails();
@@ -126,24 +125,24 @@ namespace ViewYourPayments.Web.Controllers
             }
 
             if (paymentsFilter == null)
-            {           
+            {
                 paymentsFilter = new PaymentsTransactionsFilter(
                             DateTime.UtcNow.AddDays(-1 * _appSettings.Value.InitialTransactionViewRecordsDuration), DateTime.UtcNow, 1);
             }
-           var transactionFilter = new PaymentTransactionFilterViewModel
+            var transactionFilter = new PaymentTransactionFilterViewModel
             {
                 DateRange = new DatePickerViewModel(paymentsFilter.FromDate, paymentsFilter.ToDate),
                 SearchTerms = paymentsFilter.SearchTerms,
-            };           
+            };
 
             paymentsFilter.PageNumber = 1;
             paymentsFilter.PrimarySortField = sortField;
             paymentsFilter.SortDirection = sortTypeDirection;
             appSession.PaymentTransactionsFilter = paymentsFilter;
 
-            var viewModel = await GetPaymentTransactionsData(transactionFilter, appSession, user,sortField, sortTypeDirection);
+            var viewModel = await GetPaymentTransactionsData(transactionFilter, appSession, user, sortField, sortTypeDirection);
             ViewBag.Section = "budget-group-summary-section";
-            return View("index", viewModel); 
+            return View("index", viewModel);
         }
 
         public async Task<IActionResult> DownloadCsv()
@@ -203,7 +202,7 @@ namespace ViewYourPayments.Web.Controllers
             {
                 _applicationLogger.LogInfo($"No unique transaction descriptions found for ukprn: {user.Ukprn} - fromdate:{paymentsFilter.FromDate} - endDate: {paymentsFilter.ToDate}");
             }
-            return result.Select(x=>new DescriptionFilterItem { Text =x, Value =x});
+            return result.Select(x => new DescriptionFilterItem { Text = x, Value = x });
         }
 
         private bool ShouldSetFilterDateFromSession(PaymentsTransactionsFilter paymentFilter, bool isPageReset)
@@ -227,11 +226,11 @@ namespace ViewYourPayments.Web.Controllers
             };
         }
 
-        private async Task<PaymentTransactionsPageViewModel> GetPaymentTransactionsData(PaymentTransactionFilterViewModel filterViewModel, 
+        private async Task<PaymentTransactionsPageViewModel> GetPaymentTransactionsData(PaymentTransactionFilterViewModel filterViewModel,
                                         PaymentsApplicationSession applicationSession,
-                                        ClaimsUser user, 
-                                        PaymentTransactionSortFields sortField ,
-                                        SortDirection sortDirection )
+                                        ClaimsUser user,
+                                        PaymentTransactionSortFields sortField,
+                                        SortDirection sortDirection)
         {
             var viewModel = new PaymentTransactionsPageViewModel();
             var paymentsFilter = applicationSession.PaymentTransactionsFilter;
@@ -267,14 +266,14 @@ namespace ViewYourPayments.Web.Controllers
             viewModel.Result.NextPageLink = Url.Action("Index", "PaymentTransactions") + $"?page={viewModel.Result.CurrentPage + 1}";
             viewModel.Result.PreviousPageLink = Url.Action("Index", "PaymentTransactions") + $"?page={viewModel.Result.CurrentPage - 1}";
             viewModel.TransactionFilter.GetUniqueTransctionDescriptionsUrl = Url.Action("GetUniqueTransanctionDescripitons", "PaymentTransactions");
-            viewModel.TransactionFilter.CurrentSearchTermsKeyValuePairs =  GetSearchTermsAsJson(paymentsFilter.SearchTerms);
+            viewModel.TransactionFilter.CurrentSearchTermsKeyValuePairs = GetSearchTermsAsJson(paymentsFilter.SearchTerms);
             _userLoginService.UpsertApplicationCookie(Constants.UserSessionCookieKey, applicationSession);
             return viewModel;
         }
 
         private static string GetSearchTermsAsJson(string searchTerms)
         {
-            var currentSearchTerms = searchTerms?.Split(",",StringSplitOptions.RemoveEmptyEntries);
+            var currentSearchTerms = searchTerms?.Split(",", StringSplitOptions.RemoveEmptyEntries);
             if (currentSearchTerms != null && currentSearchTerms.Any())
             {
                 var descriptionFilterItems = currentSearchTerms.Select(x => new DescriptionFilterItem { Text = x, Value = x });

@@ -1,6 +1,6 @@
 ﻿namespace ViewYourPayments.Web.Models
 {
-    public class BasePageViewModel: IBasePageViewModel
+    public class BasePageViewModel : IBasePageViewModel
     {
         public string ProviderName { get; set; }
         public string UkprnNumber { get; set; }

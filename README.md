@@ -28,8 +28,6 @@ In order to run the application locally a valid `appsettings.json` file will nee
 
 ```json
 {
-  {
-  "APPINSIGHTS_INSTRUMENTATIONKEY": "",
   "Environment": "",
   "AppSettings": {
     "APPLOGGINGAPPINSIGHTS_INSTRUMKEY": "",
@@ -80,9 +78,6 @@ In order to run the application locally a valid `appsettings.json` file will nee
 ```
 
 ### Setting Details
-
-- **`APPINSIGHTS_INSTRUMENTATIONKEY`**  
-  The key value for Application Insights resource for logging purposes.
 
 - **`Environment`**  
   The environment which the app is running on for Application Insights for logging purposes.
@@ -170,6 +165,12 @@ In order to run the application locally a valid `appsettings.json` file will nee
 
 - **`AppSettings:MSClarityId`**
   The unique tracking identifier assigned by Microsoft Clarity to a specific website project. It tells the Microsoft Clarity tracking script where to send session recordings, heatmaps, and user behavior analytics for that particular website.
+
+## Node packages
+
+`ViewYourPayments.Web` project uses Node packages for front-end development. The required packages and versions are defined in the `package-lock.json` file.
+
+Please ensure the package references found in the `ViewYourrPayments.Web` dependencies section match the package references found in the `package-lock.json` file. If they do not match, uninstall the packages from the npm depencencies within `ViewYourPayments.Web` and restore the packages by selecting `Restore packages` from the `package.json` file context menu.
   
 ## Build and Test
 

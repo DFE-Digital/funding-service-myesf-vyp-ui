@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ViewYourPayments.Core.Interfaces.User;
+﻿using ViewYourPayments.Core.Interfaces.User;
 
 namespace ViewYourPayments.Core.Models.User
 {
@@ -38,22 +35,22 @@ namespace ViewYourPayments.Core.Models.User
         /// <summary>
         /// UkPrn of the provider
         /// </summary>
-        public int Ukprn { get;  set; }
+        public int Ukprn { get; set; }
 
         /// <summary>
         /// The name of the provider.
         /// </summary>
-        public string Name { get;  set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Comapany number of the provider.
         /// </summary>
-        public string CompanyNumber { get;  set; }
+        public string CompanyNumber { get; set; }
 
         /// <summary>
         /// Charity registration number of the provider.
         /// </summary>
-        public string CharityRegistrationNumber { get;  set; }
+        public string CharityRegistrationNumber { get; set; }
 
         #endregion
     }

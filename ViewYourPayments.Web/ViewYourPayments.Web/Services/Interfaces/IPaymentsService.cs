@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.DTOs;
-using ViewYourPayments.Core.Enums;
 using ViewYourPayments.Web.Models;
 
 namespace ViewYourPayments.Web.Services.Interfaces

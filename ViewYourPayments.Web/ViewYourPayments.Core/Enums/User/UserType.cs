@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ViewYourPayments.Core.Attributes;
+﻿using ViewYourPayments.Core.Attributes;
 
 namespace ViewYourPayments.Core.Enums.User
 {

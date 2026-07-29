@@ -1,8 +1,6 @@
-using System;
-
 namespace ViewYourPayments.Core.Models.DFESignIn
 {
-      /// <summary>
+    /// <summary>
     /// Organisation associated to a DFE Sign-In user.
     /// </summary>
     public class Organisation

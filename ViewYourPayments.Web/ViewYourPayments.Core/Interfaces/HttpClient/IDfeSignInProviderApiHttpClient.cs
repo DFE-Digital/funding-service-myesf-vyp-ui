@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace ViewYourPayments.Core.Interfaces.HttpClient
+﻿namespace ViewYourPayments.Core.Interfaces.HttpClient
 {
     public interface IDfeSignInProviderApiHttpClient
     {

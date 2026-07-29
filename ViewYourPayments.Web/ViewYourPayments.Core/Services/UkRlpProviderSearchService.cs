@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UkrlpProviderService;
+﻿using UkrlpProviderService;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.Services;
 using ViewYourPayments.Core.Interfaces.User;
@@ -57,7 +53,7 @@ namespace ViewYourPayments.Core.Services
             return await CallWithSelectionCriteria(criteria => criteria.UnitedKingdomProviderReferenceNumberList = new[] { ukprn.ToString() });
         }
 
-        
+
         /// <summary>
         /// Get the trading name for a given active UKPRN.
         /// </summary>
@@ -67,7 +63,7 @@ namespace ViewYourPayments.Core.Services
         {
             if (_logger != null)
             {
-                _logger.LogWarn( $"Calling UKRLP for GetTradingNameByUkprn for [{ukprn}]");
+                _logger.LogWarn($"Calling UKRLP for GetTradingNameByUkprn for [{ukprn}]");
             }
 
             return await CallWithSelectionCriteriaForActiveState(criteria => criteria.UnitedKingdomProviderReferenceNumberList = new[] { ukprn.ToString() });
@@ -175,40 +171,40 @@ namespace ViewYourPayments.Core.Services
             {
                 var client = new ProviderQueryPortTypeClient(ProviderQueryPortTypeClient.EndpointConfiguration.ProviderQueryPort, _serviceUrl);
                 var retrieveAllProvidersResponse = await client.retrieveAllProvidersAsync(request);
-                    if (retrieveAllProvidersResponse?.ProviderQueryResponse?.MatchingProviderRecords != null)
+                if (retrieveAllProvidersResponse?.ProviderQueryResponse?.MatchingProviderRecords != null)
+                {
+                    var listOfProviders = retrieveAllProvidersResponse.ProviderQueryResponse.MatchingProviderRecords;
+                    if (listOfProviders.Any())
                     {
-                        var listOfProviders = retrieveAllProvidersResponse.ProviderQueryResponse.MatchingProviderRecords;
-                        if (listOfProviders.Any())
+                        var providersList = new List<Provider>();
+
+                        foreach (var provider in listOfProviders)
                         {
-                            var providersList = new List<Provider>();
+                            var companyNumber = provider?.VerificationDetails?.Where(o => o.VerificationAuthority == "Companies House")?
+                                .Select(o => o.VerificationID).FirstOrDefault();
 
-                            foreach (var provider in listOfProviders)
-                            {
-                                var companyNumber = provider?.VerificationDetails?.Where(o => o.VerificationAuthority == "Companies House")?
-                                    .Select(o => o.VerificationID).FirstOrDefault();
+                            var charityHouseNumber = provider?.VerificationDetails?.Where(o => o.VerificationAuthority == "Charity Commission")?
+                                .Select(o => o.VerificationID).FirstOrDefault();
 
-                                var charityHouseNumber = provider?.VerificationDetails?.Where(o => o.VerificationAuthority == "Charity Commission")?
-                                    .Select(o => o.VerificationID).FirstOrDefault();
-
-                                providersList.Add(new Provider(
-                                    Convert.ToInt32(provider.UnitedKingdomProviderReferenceNumber),
-                                    provider.ProviderName,
-                                    companyNumber,
-                                    charityHouseNumber)
-                                );
-                            }
-
-                            return providersList;
+                            providersList.Add(new Provider(
+                                Convert.ToInt32(provider.UnitedKingdomProviderReferenceNumber),
+                                provider.ProviderName,
+                                companyNumber,
+                                charityHouseNumber)
+                            );
                         }
-                    _logger.LogWarn($"No provider found for {request.SelectionCriteria.UnitedKingdomProviderReferenceNumberList} and client {client.Endpoint.Address.Uri.AbsoluteUri}");
+
+                        return providersList;
                     }
-                
+                    _logger.LogWarn($"No provider found for {request.SelectionCriteria.UnitedKingdomProviderReferenceNumberList} and client {client.Endpoint.Address.Uri.AbsoluteUri}");
+                }
+
             }
             catch (Exception exception)
             {
                 if (_logger != null)
                 {
-                    _logger.LogException( exception);
+                    _logger.LogException(exception);
                 }
             }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ViewYourPayments.Core.Enums.Loggin;
+﻿using ViewYourPayments.Core.Enums.Loggin;
 
 namespace ViewYourPayments.Core.Interfaces
 {

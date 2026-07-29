@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
@@ -11,8 +11,6 @@ using ViewYourPayments.Core.Interfaces.User;
 using ViewYourPayments.Core.Models.User;
 using ViewYourPayments.Web.Services;
 using Xunit;
-using FluentAssertions;
-using ViewYourPayments.Web.Shared;
 
 namespace ViewYourPayments.Web.Tests.Services
 {
@@ -197,10 +195,10 @@ namespace ViewYourPayments.Web.Tests.Services
             defaultHttpContext.Request.Headers["Referer"] = "https://test-vyp.com/paymentsummary/index";
             defaultHttpContext.Request.Host = HostString.FromUriComponent(new Uri("https://test-vyp.com?ukprn=1233"));
             defaultHttpContext.Request.QueryString = QueryString.FromUriComponent(new Uri($"https://test-vyp.com{queryString}")); ;
-            return defaultHttpContext;   
+            return defaultHttpContext;
         }
 
-        private ClaimsPrincipal GetUserDetailsWithValidRole(int ukprn,bool isExternalUser,string providerName)
+        private ClaimsPrincipal GetUserDetailsWithValidRole(int ukprn, bool isExternalUser, string providerName)
         {
             return new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
                 {

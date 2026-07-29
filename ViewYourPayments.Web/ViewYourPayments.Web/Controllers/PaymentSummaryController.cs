@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Models;
-using ViewYourPayments.Web.Shared;
-using Microsoft.AspNetCore.Http;
 using ViewYourPayments.Core.Models.User;
 using ViewYourPayments.Web.Filters;
+using ViewYourPayments.Web.Models;
+using ViewYourPayments.Web.Services.Interfaces;
+using ViewYourPayments.Web.Shared;
 
 namespace ViewYourPayments.Web.Controllers
 {
@@ -37,7 +37,7 @@ namespace ViewYourPayments.Web.Controllers
 
         [HttpPost, HttpGet]
         [AuthenticateUser]
-        public async Task<IActionResult> Index([FromQuery]string ukPrn = "", [FromForm]DatePickerViewModel datePicker = null, [FromQuery] int page = 0, bool isPageReset = false)
+        public async Task<IActionResult> Index([FromQuery] string ukPrn = "", [FromForm] DatePickerViewModel datePicker = null, [FromQuery] int page = 0, bool isPageReset = false)
         {
             var user = new ClaimsUser(HttpContext.User);
             var appSession = GetUserSessionDetails();

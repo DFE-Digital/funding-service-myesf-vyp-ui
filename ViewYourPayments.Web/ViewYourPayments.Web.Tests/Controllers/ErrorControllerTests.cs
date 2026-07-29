@@ -1,24 +1,24 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
-using Xunit;
-using Moq;
-using FluentAssertions;
-using ViewYourPayments.Core.Interfaces.Services;
-using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Controllers;
-using ViewYourPayments.Web.Services.Interfaces;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ViewYourPayments.Web.Models;
-using ViewYourPayments.Core.Models.User;
-using ViewYourPayments.Web.Shared;
-using ViewYourPayments.Core.Enums;
 using Microsoft.Extensions.Options;
-using ViewYourPayments.Core.Enums.User;
+using Moq;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
 using ViewYourPayments.Core.Attributes;
+using ViewYourPayments.Core.Enums;
+using ViewYourPayments.Core.Enums.User;
+using ViewYourPayments.Core.Interfaces;
+using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Models.AppConfig;
+using ViewYourPayments.Core.Models.User;
+using ViewYourPayments.Web.Controllers;
+using ViewYourPayments.Web.Models;
+using ViewYourPayments.Web.Services.Interfaces;
+using ViewYourPayments.Web.Shared;
+using Xunit;
 
 namespace ViewYourPayments.Web.Tests.Controllers
 {
@@ -57,8 +57,8 @@ namespace ViewYourPayments.Web.Tests.Controllers
             _mockUserAuthorisationService.Setup(x => x.GetValueFromCookies(It.IsAny<string>())).Returns(GetApplicationSession(0));
 
             //Act
-            dynamic result =  _errorController.AccessDenied();
-            var model = (UnauthorisedErrorViewModel) result.Model;
+            dynamic result = _errorController.AccessDenied();
+            var model = (UnauthorisedErrorViewModel)result.Model;
 
             //Assert
             model.requiredRoles.Should().Equal(GetUserRolesDisplayNames(requiredUserRoles));

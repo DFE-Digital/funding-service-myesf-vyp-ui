@@ -1,6 +1,4 @@
-﻿
-using System.Collections.Generic;
-using ViewYourPayments.Core.Models.User;
+﻿using ViewYourPayments.Core.Models.User;
 
 namespace ViewYourPayments.Core.Interfaces.User
 {

@@ -1,17 +1,15 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using FluentAssertions;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.HttpClient;
-using ViewYourPayments.Web.Services.Interfaces;
-using ViewYourPayments.Web.Services;
-using Xunit;
-using FluentAssertions;
 using ViewYourPayments.Core.Models;
+using ViewYourPayments.Web.Services;
+using ViewYourPayments.Web.Services.Interfaces;
+using Xunit;
 
 namespace ViewYourPayments.Web.Tests.Services
 {

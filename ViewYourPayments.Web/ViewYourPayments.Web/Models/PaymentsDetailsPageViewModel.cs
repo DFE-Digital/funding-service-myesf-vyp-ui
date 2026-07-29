@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace ViewYourPayments.Web.Models
+﻿namespace ViewYourPayments.Web.Models
 {
     public class PaymentsDetailsPageViewModel : BasePageViewModel
     {
-       public PaymentsDetailsPageViewModel()
+        public PaymentsDetailsPageViewModel()
         {
             DisplayHomePageLink = true;
         }

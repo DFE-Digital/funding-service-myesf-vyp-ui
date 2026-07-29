@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace ViewYourPayments.Core.Models.DFESignIn
 {
     /// <summary>
@@ -63,5 +60,5 @@ namespace ViewYourPayments.Core.Models.DFESignIn
         /// The ukprn.
         /// </value>
         public string Ukprn { get; set; }
-    }   
+    }
 }

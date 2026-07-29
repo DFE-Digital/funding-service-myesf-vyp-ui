@@ -1,7 +1,7 @@
-using ViewYourPayments.Core.Models.DFESignIn;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViewYourPayments.Core.Models.DFESignIn;
 
 namespace DFESignIn.Services.Interfaces
 {

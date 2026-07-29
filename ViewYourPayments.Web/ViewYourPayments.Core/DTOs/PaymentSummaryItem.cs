@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewYourPayments.Core.DTOs
+﻿namespace ViewYourPayments.Core.DTOs
 {
     public class PaymentSummaryItem
     {

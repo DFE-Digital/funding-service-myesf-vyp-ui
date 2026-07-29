@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ViewYourPayments.Core.Enums;
 
 namespace ViewYourPayments.Web.Shared
@@ -33,12 +30,12 @@ namespace ViewYourPayments.Web.Shared
         /// Selected primary sort field. By default it is PaymentDate.
         /// </summary>
         public PaymentTransactionSortFields PrimarySortField { get; set; } = PaymentTransactionSortFields.PaymentDate;
-        
+
         /// <summary>
         /// Selected sort direction. By default it is descending.
         /// </summary>
         public SortDirection SortDirection { get; set; } = SortDirection.Descending;
-        
+
         /// <summary>
         /// String containing multiple search terms with coma(,) as delimiter.
         /// </summary>

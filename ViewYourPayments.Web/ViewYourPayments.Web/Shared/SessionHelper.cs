@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using ViewYourPayments.Core.Interfaces.User;
-using ViewYourPayments.Core.Models.User;
 
 namespace ViewYourPayments.Web.Shared
 {

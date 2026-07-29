@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ViewYourPayments.Core.Models.User
+﻿namespace ViewYourPayments.Core.Models.User
 {
     [AttributeUsage(AttributeTargets.All)]
     public class ContactServiceDescriptorAttribute : Attribute

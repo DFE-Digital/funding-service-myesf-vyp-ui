@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 using ViewYourPayments.Core.Enums.User;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Models.AppConfig;
@@ -44,7 +44,7 @@ namespace ViewYourPayments.Web.Controllers
                 });
                 await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
-            
+
         }
 
         [AllowAnonymous]

@@ -1,13 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewYourPayments.Core.DTOs;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.HttpClient;
-using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Models;
-using ViewYourPayments.Core.DTOs;
-using ViewYourPayments.Core.Enums;
-using System.Collections.Generic;
+using ViewYourPayments.Web.Services.Interfaces;
 
 namespace ViewYourPayments.Web.Services
 {
@@ -108,18 +107,18 @@ namespace ViewYourPayments.Web.Services
             var response = await _paymentsHttpClient.GetPaymentTransactions(token, request, searchCriteria);
             _applicationLogger.LogInfo("successfully received payment response");
 
-            return   new PaymentTransactionResultViewModel
+            return new PaymentTransactionResultViewModel
             {
                 DateFrom = response.DateFrom,
                 DateTo = response.DateTo,
                 CurrentPage = response.CurrentPage,
                 TotalRecords = response.TotalRecords,
                 TotalPages = (int)Math.Ceiling((double)response.TotalRecords / response.PageSize),
-                Ukprn = response.ProviderUkprn, 
+                Ukprn = response.ProviderUkprn,
                 BudgetGroupSummary = response.BudgetGroupSummary,
                 VendorNumber = response.ProviderFinanceVendorCode,
                 PrimarySortField = searchCriteria.PrimarySortField,
-                PrimarySortDirection =searchCriteria.SortDirection,
+                PrimarySortDirection = searchCriteria.SortDirection,
                 PaymentTransactions = response.PaymentLines.Select(p => new PaymentTransactionViewModel
                 {
                     BudgetDescription = p.BudgetDescription,

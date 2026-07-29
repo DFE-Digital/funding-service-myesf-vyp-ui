@@ -1,23 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Web.Services.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Controllers;
-using FluentAssertions;
-using Xunit;
-using System.Security.Claims;
-using ViewYourPayments.Core.Models.User;
-using ViewYourPayments.Core.Interfaces.User;
-using System.Collections.Generic;
 using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Interfaces.User;
+using ViewYourPayments.Core.Models.AppConfig;
+using ViewYourPayments.Core.Models.User;
+using ViewYourPayments.Web.Controllers;
 using ViewYourPayments.Web.Models;
-using System;
+using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Shared;
-using System.Linq;
+using Xunit;
 
 namespace ViewYourPayments.Web.Tests.Controllers
 {
@@ -38,14 +38,14 @@ namespace ViewYourPayments.Web.Tests.Controllers
             _mockAppSettingsOptions = new Mock<IOptions<AppSettings>>();
             _mockUserAuthorisationService = new Mock<IUserAuthorisationService>();
             _mockApplicationLogger = new Mock<IApplicationLogger>();
-            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialPaymentsRecordsDuration =100 };
+            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialPaymentsRecordsDuration = 100 };
             _mockPaymentService = new Mock<IPaymentsService>();
             _mockDocumentManagementService = new Mock<IDocumentManagementService>();
             Mock<IUrlHelper> urlHelperMock = new Mock<IUrlHelper>();
-            _paymentDetailsController = new PaymentDetailsController(_mockAppSettingsOptions.Object, 
-                                                                        _mockUserAuthorisationService.Object, 
-                                                                        _mockApplicationLogger.Object, 
-                                                                        _mockPaymentService.Object, 
+            _paymentDetailsController = new PaymentDetailsController(_mockAppSettingsOptions.Object,
+                                                                        _mockUserAuthorisationService.Object,
+                                                                        _mockApplicationLogger.Object,
+                                                                        _mockPaymentService.Object,
                                                                         _mockDocumentManagementService.Object);
             _paymentDetailsController.Url = urlHelperMock.Object;
 
@@ -75,7 +75,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             model.BackToPaymentSummaryPageUrl.Should().Be("?page=1");
         }
 
-        [Fact] 
+        [Fact]
         public async Task Index_WhenRequestIsMadeFromPaymentSummaryPageWithInternalUser_ShouldDisplayResult()
         {
             //Arrange
@@ -143,10 +143,10 @@ namespace ViewYourPayments.Web.Tests.Controllers
             model.ContentType.Should().Be("text/csv");
             model.Should().NotBeNull();
             _mockPaymentService.Verify(x => x.GetPaymentDetails(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
-            _mockDocumentManagementService.Verify(x => x.TransformRecordsToCsvBytes(It.IsAny<IEnumerable<object>>()),   Times.Once);
+            _mockDocumentManagementService.Verify(x => x.TransformRecordsToCsvBytes(It.IsAny<IEnumerable<object>>()), Times.Once);
         }
 
-        private PaymentsApplicationSession GetApplicationSession(int pageNumber =1)
+        private PaymentsApplicationSession GetApplicationSession(int pageNumber = 1)
         {
             var appSession = new PaymentsApplicationSession()
             {
@@ -163,18 +163,18 @@ namespace ViewYourPayments.Web.Tests.Controllers
             };
 
         }
-    
+
 
         private PaymentDetailsResultViewModel GetPaymentDetails()
         {
             return new PaymentDetailsResultViewModel
             {
                 PaymentAmount = 1102.22M,
-                PaymentDate= DateTime.Now,
+                PaymentDate = DateTime.Now,
                 PaymentLines = new List<PaymentDetailViewModel>
                 {
-                  new PaymentDetailViewModel{ContractNumber="2222", 
-                                            BudgetDescription = "TestBudgetDesc", 
+                  new PaymentDetailViewModel{ContractNumber="2222",
+                                            BudgetDescription = "TestBudgetDesc",
                                             PaymentLineAmount=102.11M,
                                             PaymentDate = DateTime.Now,
                                             PaymentLineDescription="TestuserData"},
@@ -245,5 +245,5 @@ namespace ViewYourPayments.Web.Tests.Controllers
             return Array.Empty<byte>();
         }
 
-    }  
+    }
 }

@@ -1,23 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Web.Services.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Controllers;
-using FluentAssertions;
-using Xunit;
-using System.Security.Claims;
-using ViewYourPayments.Core.Models.User;
 using ViewYourPayments.Core.Interfaces.User;
-using System.Collections.Generic;
-using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Models.AppConfig;
+using ViewYourPayments.Core.Models.User;
+using ViewYourPayments.Web.Controllers;
 using ViewYourPayments.Web.Models;
-using System;
+using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Shared;
-using ViewYourPayments.Core.DTOs;
+using Xunit;
 
 namespace ViewYourPayments.Web.Tests.Controllers
 {
@@ -49,15 +46,15 @@ namespace ViewYourPayments.Web.Tests.Controllers
             _appSettingsOptions = new Mock<IOptions<AppSettings>>();
             _userAuthorisationService = new Mock<IUserAuthorisationService>();
             _applicationLogger = new Mock<IApplicationLogger>();
-            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialPaymentsRecordsDuration =100 };
+            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialPaymentsRecordsDuration = 100 };
             _mockPaymentService = new Mock<IPaymentsService>();
             _paymentSummarController = new PaymentSummaryController(_appSettingsOptions.Object, _applicationLogger.Object, _mockPaymentService.Object, _userAuthorisationService.Object);
         }
 
         [Theory]
-        [InlineData(0,false,3,3)]     //page refresh with no page number, page number should take from session
-        [InlineData( 2,false,3,2)] //Changed page number, should get data with page 2
-        public async Task Index_WhenRequestIsNotSubmittedToFilterRecords_ShouldUseFilterParametersFromSession(int pageNumber, bool isPageReset,int pageNumberInSession, int expectedPageNumber)
+        [InlineData(0, false, 3, 3)]     //page refresh with no page number, page number should take from session
+        [InlineData(2, false, 3, 2)] //Changed page number, should get data with page 2
+        public async Task Index_WhenRequestIsNotSubmittedToFilterRecords_ShouldUseFilterParametersFromSession(int pageNumber, bool isPageReset, int pageNumberInSession, int expectedPageNumber)
         {
             //Arrange
             var datePicker = new DatePickerViewModel(DateTime.UtcNow.AddDays(-15), DateTime.UtcNow.AddDays(-5));
@@ -69,8 +66,8 @@ namespace ViewYourPayments.Web.Tests.Controllers
 
             _appSettingsOptions.Setup(x => x.Value).Returns(_appSetting);
             _userAuthorisationService.Setup(x => x.GetValueFromCookies(It.IsAny<string>())).Returns(GetApplicationSession(pageNumberInSession));
-            _mockPaymentService.Setup(x => x.GetPaymentSummaries(It.IsAny<string>(), It.IsAny<DateTime>(),It.IsAny<DateTime>() 
-                                                            , It.IsAny<int>())).ReturnsAsync(GetPayments()); 
+            _mockPaymentService.Setup(x => x.GetPaymentSummaries(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>()
+                                                            , It.IsAny<int>())).ReturnsAsync(GetPayments());
 
             //Act
             dynamic result = await _paymentSummarController.Index("", datePicker, pageNumber, isPageReset);
@@ -82,14 +79,14 @@ namespace ViewYourPayments.Web.Tests.Controllers
             model.Result.PaymentSummaries.Count.Should().Be(1);
             model.DateRange.StartDateDay.Should().Be(appSession.PaymentsSummaryFilter.FromDate.Day);
             model.DateRange.EndDateDay.Should().Be(appSession.PaymentsSummaryFilter.ToDate.Day);
-            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(),It.IsAny<DateTime>(),
-                                                                        It.IsAny<DateTime>(),expectedPageNumber), Times.Once);
+            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(), It.IsAny<DateTime>(),
+                                                                        It.IsAny<DateTime>(), expectedPageNumber), Times.Once);
         }
 
         [Theory]
-        [InlineData( 1, true, true)] //Reset action
-        [InlineData( 1, false, true)] //user typed url in active login. no fiter exists
-        public async Task Index_WhenRequestIsNotValidForSesionValue_ShouldUseDefaultDateAsFilter( int pageNumber, bool hasActiveFilter, bool isPageReset)
+        [InlineData(1, true, true)] //Reset action
+        [InlineData(1, false, true)] //user typed url in active login. no fiter exists
+        public async Task Index_WhenRequestIsNotValidForSesionValue_ShouldUseDefaultDateAsFilter(int pageNumber, bool hasActiveFilter, bool isPageReset)
         {
             //Arrange
             var applicationSession = GetApplicationSession();
@@ -115,7 +112,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             model.Result.Should().NotBeNull();
             model.Result.PaymentSummaries.Count.Should().Be(1);
             model.DateRange.StartDateDay.Should().Be(defaultDateFilter.FromDate.Day);
-            model.DateRange.EndDateDay.Should().Be(defaultDateFilter.ToDate.Day); 
+            model.DateRange.EndDateDay.Should().Be(defaultDateFilter.ToDate.Day);
             _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(), It.IsAny<DateTime>(),
                                                                          It.IsAny<DateTime>(), 1), Times.Once);
         }
@@ -131,11 +128,11 @@ namespace ViewYourPayments.Web.Tests.Controllers
                                                     int startYear,
                                                     int endDay,
                                                     int endMonth,
-                                                    int endYear, 
+                                                    int endYear,
                                                     string expectedMessage)
         {
             //Arrange
-            var defaultHttpContext = new DefaultHttpContext(); 
+            var defaultHttpContext = new DefaultHttpContext();
             defaultHttpContext.Request.Headers["Referer"] = "https://test-vyp.com";
             defaultHttpContext.Request.Host = HostString.FromUriComponent(new Uri("https://test-vyp.com"));
             defaultHttpContext.Request.Method = HttpMethods.Post;
@@ -156,14 +153,14 @@ namespace ViewYourPayments.Web.Tests.Controllers
                 EndDateYear = endYear,
             };
             //Act
-            dynamic result = await _paymentSummarController.Index("",dateRange);
+            dynamic result = await _paymentSummarController.Index("", dateRange);
 
             //Assert
             var model = (PaymentSummaryPageViewModel)result.Model;
             model.HasValidationError.Should().BeTrue();
             model.ValidationMessage.Should().Be(expectedMessage);
             model.Result.Should().BeNull();
-            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(),It.IsAny<DateTime>(),It.IsAny<DateTime>(), It.IsAny<int>()), Times.Never);
+            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(), It.IsAny<DateTime>(), It.IsAny<DateTime>(), It.IsAny<int>()), Times.Never);
         }
 
         [Fact]
@@ -222,17 +219,17 @@ namespace ViewYourPayments.Web.Tests.Controllers
             //Set date range with input params
             var dateRange = new DatePickerViewModel(startDate, endDate);
             //Act
-            dynamic result = await _paymentSummarController.Index("",dateRange);
+            dynamic result = await _paymentSummarController.Index("", dateRange);
 
             //Assert
             var model = (PaymentSummaryPageViewModel)result.Model;
             model.HasValidationError.Should().BeFalse();
             model.Result.PaymentSummaries.Count.Should().Be(1);
             //Get payment summary method should get called with input parameters
-            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(), startDate,endDate,It.IsAny<int>()), Times.Once);
+            _mockPaymentService.Verify(x => x.GetPaymentSummaries(It.IsAny<string>(), startDate, endDate, It.IsAny<int>()), Times.Once);
         }
 
-        private PaymentsApplicationSession GetApplicationSession(int pageNumber =1)
+        private PaymentsApplicationSession GetApplicationSession(int pageNumber = 1)
         {
             var appSession = new PaymentsApplicationSession()
             {
@@ -290,5 +287,5 @@ namespace ViewYourPayments.Web.Tests.Controllers
                 }));
         }
 
-    }  
+    }
 }

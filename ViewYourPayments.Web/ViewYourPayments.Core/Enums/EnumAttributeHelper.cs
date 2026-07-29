@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ViewYourPayments.Core.Enums
+﻿namespace ViewYourPayments.Core.Enums
 {
-   /// <summary>
+    /// <summary>
     /// Provides a descriptive functionality for Enums through
     /// the use of a custom attribute.
     /// </summary>

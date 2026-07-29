@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ViewYourPayments.Web.Shared
+﻿namespace ViewYourPayments.Web.Shared
 {
     public static class Constants
     {

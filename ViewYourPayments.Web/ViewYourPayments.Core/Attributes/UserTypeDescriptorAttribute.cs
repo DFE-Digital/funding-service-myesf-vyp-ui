@@ -1,5 +1,4 @@
-﻿using System;
-using ViewYourPayments.Core.Enums.User;
+﻿using ViewYourPayments.Core.Enums.User;
 
 namespace ViewYourPayments.Core.Attributes
 {

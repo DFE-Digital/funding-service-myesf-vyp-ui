@@ -18,7 +18,7 @@
         /// <summary>
         /// Selectd search terms.
         /// </summary>
-        public string CurrentSearchTermsKeyValuePairs { get; set; }  ="[]";
+        public string CurrentSearchTermsKeyValuePairs { get; set; } = "[]";
 
         /// <summary>
         /// Absolue URL to get unique transaction descriptions used in FastSelect.

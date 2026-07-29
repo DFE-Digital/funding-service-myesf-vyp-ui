@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ViewYourPayments.Core.Interfaces.Services
+﻿namespace ViewYourPayments.Core.Interfaces.Services
 {
     /// <summary>
     /// Api for manipulating and getting information from spreadsheets.

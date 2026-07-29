@@ -1,12 +1,12 @@
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using ViewYourPayments.Core.Models.DFESignIn;
-using FluentAssertions;
 using ViewYourPayments.Core.Extensions;
-using Xunit;
+using ViewYourPayments.Core.Models.DFESignIn;
 using ViewYourPayments.Core.Models.User;
+using Xunit;
 
 namespace DFESignIn.Tests
 {

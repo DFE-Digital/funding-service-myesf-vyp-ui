@@ -7,7 +7,7 @@ using ViewYourPayments.Core.Models.AppConfig;
 
 namespace ViewYourPayments.Web.Extensions
 {
-    public class VYPAnalyticsTagHelper: TagHelperComponent
+    public class VYPAnalyticsTagHelper : TagHelperComponent
     {
         private readonly IOptions<AppSettings> _appSettings;
 
@@ -18,7 +18,7 @@ namespace ViewYourPayments.Web.Extensions
 
         public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            
+
             if (string.Equals(context.TagName, "head", StringComparison.Ordinal))
             {
                 ///  Javascript from MS - https://docs.microsoft.com/en-us/azure/azure-monitor/app/website-monitoring

@@ -1,12 +1,7 @@
 ﻿using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using ViewYourPayments.Core.Enums.Loggin;
 using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
 
 namespace ViewYourPayments.Core.Models.Logging
 {

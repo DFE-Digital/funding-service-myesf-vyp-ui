@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using ViewYourPayments.Core.Enums;
+﻿using ViewYourPayments.Core.Enums;
 
 namespace ViewYourPayments.Web.Models
 {
     public class PaymentTransactionsSortItemViewModel
     {
-        public PaymentTransactionSortFields PrimarySortField { get; set; } 
+        public PaymentTransactionSortFields PrimarySortField { get; set; }
         public SortDirection SortDirection { get; set; }
         public PaymentTransactionSortFields CurrentField { get; set; }
 

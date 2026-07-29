@@ -1,15 +1,14 @@
-﻿using System;
+﻿using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 using ViewYourPayments.Core.Models.User;
 using Xunit;
-using FluentAssertions;
 
 
 namespace ViewYourPayments.Core.Tests
 {
-   public class ClaimUserTests
+    public class ClaimUserTests
     {
 
         [Theory]
@@ -86,7 +85,7 @@ namespace ViewYourPayments.Core.Tests
         }
 
         [Theory]
-        [InlineData("","Test", UserRole.None, false)]
+        [InlineData("", "Test", UserRole.None, false)]
         [InlineData("1", "", UserRole.ViewAsProvider, false)]
         [InlineData(null, "", UserRole.ViewAsProvider, false)]
         [InlineData("333", null, UserRole.ViewAsProvider, false)]
@@ -96,7 +95,7 @@ namespace ViewYourPayments.Core.Tests
         public void IsAuthorised_WhenUkprnIsEmpty_ShouldRetrun_False(string ukprn, string providerName, UserRole role, bool expectedResult)
         {
             // Arrange
-            var claimPrincipal = GetUserClaim(ukprn,providerName,role.ToString(),true);
+            var claimPrincipal = GetUserClaim(ukprn, providerName, role.ToString(), true);
             var claimsUser = new ClaimsUser(claimPrincipal);
             // Act
             var result = claimsUser.IsAuthorised;
@@ -131,7 +130,7 @@ namespace ViewYourPayments.Core.Tests
 
         private void AddClaim(string claimType, string value, List<Claim> claimList)
         {
-            if (string.IsNullOrEmpty(value)) return ;
+            if (string.IsNullOrEmpty(value)) return;
             claimList.Add(new Claim(claimType, value));
         }
     }

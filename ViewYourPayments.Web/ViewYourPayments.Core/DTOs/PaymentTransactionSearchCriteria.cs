@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ViewYourPayments.Core.Enums;
+﻿using ViewYourPayments.Core.Enums;
 
 namespace ViewYourPayments.Core.DTOs
 {
@@ -25,12 +22,12 @@ namespace ViewYourPayments.Core.DTOs
         /// <summary>
         /// Page number (optional). If not specified.
         /// </summary>
-        public int PageNumber { get; set; } 
+        public int PageNumber { get; set; }
 
         /// <summary>
         /// Page size (optional). If not specified.
         /// </summary>
-        public int PageSize { get; set; } 
+        public int PageSize { get; set; }
 
         /// <summary>
         /// Primary sort field(optional). Default is PaymentDate.

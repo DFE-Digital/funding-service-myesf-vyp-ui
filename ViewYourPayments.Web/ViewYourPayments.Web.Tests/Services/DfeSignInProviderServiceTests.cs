@@ -1,15 +1,15 @@
-using System;
-using System.Threading.Tasks;
 using DFESignIn.Services.Implementations;
+using FluentAssertions;
 using Microsoft.Extensions.Options;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces.HttpClient;
 using ViewYourPayments.Core.Models.AppConfig;
 using ViewYourPayments.Core.Models.DFESignIn;
 using Xunit;
-using FluentAssertions;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace DFESignIn.Tests
 {
@@ -102,6 +102,6 @@ namespace DFESignIn.Tests
                 new Organisation {Id = "Test2", Name = "Test2"}
             };
         }
-    
+
     }
 }

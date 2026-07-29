@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ViewYourPayments.Web.Models
+﻿namespace ViewYourPayments.Web.Models
 {
     /// <summary>
     /// View model for PaymentTransactionPage view.

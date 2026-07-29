@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ViewYourPayments.Core.Attributes
+﻿namespace ViewYourPayments.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.All)]
     public class UserTypeClaimAttribute : Attribute

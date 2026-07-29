@@ -1,17 +1,15 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using FluentAssertions;
 using Moq;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.DTOs;
+using ViewYourPayments.Core.Enums;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.HttpClient;
-using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Services;
+using ViewYourPayments.Web.Services.Interfaces;
 using Xunit;
-using FluentAssertions;
-using System.Linq;
-using ViewYourPayments.Core.Enums;
-using System.Collections;
 
 namespace ViewYourPayments.Web.Tests.Services
 {
@@ -37,12 +35,12 @@ namespace ViewYourPayments.Web.Tests.Services
             //Arrange
             _paymentService = new PaymentsService(_mockPaymentsHttpClient.Object,
                                     _mockApplicationLogger.Object, _mockAccessTokenService.Object);
-            _mockAccessTokenService.Setup(x => x.GetPaymentApiAccessToken()).Returns(Task.FromResult( "123xyc"));
+            _mockAccessTokenService.Setup(x => x.GetPaymentApiAccessToken()).Returns(Task.FromResult("123xyc"));
             _mockPaymentsHttpClient.Setup(x => x.GetPaymentSummaries("123xyc", It.IsAny<string>())).Returns(Task.FromResult(GetPaymentSummaryWithNoSummaryRecord()));
             var request = "Provider/1234/Payments?dateFrom=2019/01/01&dateTo=2019/02/02&page=10";
 
             //Action
-            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02),10);
+            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02), 10);
 
             //Assert
             _mockPaymentsHttpClient.Verify(x => x.GetPaymentSummaries("123xyc", request), Times.Once);
@@ -61,7 +59,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var request = "Provider/1234/Payments?dateFrom=2019/01/01&dateTo=2019/02/02&page=1";
 
             //Action
-            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02),1);
+            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02), 1);
 
             //Assert
             _mockPaymentsHttpClient.Verify(x => x.GetPaymentSummaries("123xyc", request), Times.Once);
@@ -80,7 +78,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var request = "Provider/1234/Payments?dateFrom=2019/01/01&dateTo=2019/02/02&page=2";
 
             //Action
-            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02),2);
+            var result = await _paymentService.GetPaymentSummaries("1234", new DateTime(2019, 01, 01), new System.DateTime(2019, 02, 02), 2);
 
             //Assert
             _mockPaymentsHttpClient.Verify(x => x.GetPaymentSummaries("123xyc", request), Times.Once);
@@ -95,7 +93,7 @@ namespace ViewYourPayments.Web.Tests.Services
             _paymentService = new PaymentsService(_mockPaymentsHttpClient.Object,
                                     _mockApplicationLogger.Object, _mockAccessTokenService.Object);
             _mockAccessTokenService.Setup(x => x.GetPaymentApiAccessToken()).Returns(Task.FromResult("123xyc"));
-            _mockPaymentsHttpClient.Setup(x => x.GetPaymentDetails("123xyc", It.IsAny<string>())).ReturnsAsync(new PaymentDetailsResponse ());
+            _mockPaymentsHttpClient.Setup(x => x.GetPaymentDetails("123xyc", It.IsAny<string>())).ReturnsAsync(new PaymentDetailsResponse());
             var request = $"Provider/1234/Payment/{paymentIdentifier}";
 
             //Action
@@ -137,19 +135,19 @@ namespace ViewYourPayments.Web.Tests.Services
             var request = "Provider/Transactions";
             var searchCriteria = new PaymentTransactionSearchCriteria
             {
-                Ukprn ="1234",
+                Ukprn = "1234",
                 StartDate = new DateTime(2019, 01, 01),
                 EndDate = new DateTime(2019, 02, 02),
-                PageNumber =1,
+                PageNumber = 1,
                 PageSize = 7,
                 PrimarySortField = PaymentTransactionSortFields.Contract,
-                 SortDirection =SortDirection.Ascending
+                SortDirection = SortDirection.Ascending
             };
             var result = await _paymentService.GetPaymentTransactions(searchCriteria);
 
             //Assert
             _mockPaymentsHttpClient.Verify(x => x.GetPaymentTransactions("123xyc", request,
-                It.Is<PaymentTransactionSearchCriteria>(p=>p.Ukprn == searchCriteria.Ukprn && 
+                It.Is<PaymentTransactionSearchCriteria>(p => p.Ukprn == searchCriteria.Ukprn &&
                    p.PageNumber == searchCriteria.PageNumber && p.PageSize == searchCriteria.PageSize
                    && p.SearchTerms == searchCriteria.SearchTerms
                    && p.StartDate.ToShortDateString() == searchCriteria.StartDate.ToShortDateString()
@@ -245,13 +243,13 @@ namespace ViewYourPayments.Web.Tests.Services
                         new PaymentSummaryItem {
                             PaymentAmount = 200.10M,
                             PaymentDate = new DateTime(2019, 01, 01),
-                            PaymentIdentifier = 12345,                          
+                            PaymentIdentifier = 12345,
                         }
                     },
                 DateFrom = new DateTime(2019, 01, 01),
                 DateTo = new DateTime(2019, 06, 06),
                 CurrentPage = 1,
-                TotalRecords= 2,
+                TotalRecords = 2,
                 TotalPages = 1
             };
 
@@ -274,9 +272,9 @@ namespace ViewYourPayments.Web.Tests.Services
                            PaymentLineDescription = "Test this payment line one"
                         }
                     },
-                PaymentAmount= 2092.6m,
-                PaymentDate =DateTime.Now,
-                ProviderUkprn="1234"
+                PaymentAmount = 2092.6m,
+                PaymentDate = DateTime.Now,
+                ProviderUkprn = "1234"
             };
 
         }
@@ -335,8 +333,8 @@ namespace ViewYourPayments.Web.Tests.Services
                 CurrentPage = 1,
                 TotalRecords = 11,
                 ProviderUkprn = "1234",
-                PageSize=5,
-                ProviderFinanceVendorCode ="Test"
+                PageSize = 5,
+                ProviderFinanceVendorCode = "Test"
             };
 
         }

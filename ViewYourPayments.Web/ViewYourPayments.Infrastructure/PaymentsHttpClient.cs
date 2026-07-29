@@ -59,7 +59,7 @@ namespace ViewYourPayments.Infrastructure
         public async Task<PaymentSummaryResponse> GetPaymentSummaries(string token, string requestUri)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-           var uriCallWithParameters = Uri.UnescapeDataString(requestUri);
+            var uriCallWithParameters = Uri.UnescapeDataString(requestUri);
             var result = await _client.GetAsync(uriCallWithParameters);
 
             if (result.IsSuccessStatusCode)

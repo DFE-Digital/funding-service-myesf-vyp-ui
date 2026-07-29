@@ -1,11 +1,8 @@
-using ViewYourPayments.Core.Models.DFESignIn;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Security.Claims;
+using ViewYourPayments.Core.Models.DFESignIn;
 using ViewYourPayments.Core.Models.User;
-using System;
 
 namespace ViewYourPayments.Core.Extensions
 {
@@ -13,7 +10,7 @@ namespace ViewYourPayments.Core.Extensions
     /// Extension class that exposes extensions methods for <see cref="ClaimsIdentity"/>. 
     /// </summary>
     public static class ClaimsIdentityExtensions
-    {      
+    {
 
         /// <summary>
         /// Adds ukprn claim to identity claims.
@@ -104,7 +101,7 @@ namespace ViewYourPayments.Core.Extensions
                     identity.AddClaim(new Claim(ClaimsUser.RoleClaimType, myesfRole));
                 }
             }
-           
+
 
             return identity;
         }
@@ -118,7 +115,7 @@ namespace ViewYourPayments.Core.Extensions
         /// <returns><see cref="ClaimsIdentity"/>.</returns>
         public static ClaimsIdentity AddUserTypeClaim(this ClaimsIdentity identity, bool isInternalUser)
         {
-            identity.AddClaim(new Claim(ClaimsUser.UserTypeClaimType, isInternalUser ? "0" : "1"));           
+            identity.AddClaim(new Claim(ClaimsUser.UserTypeClaimType, isInternalUser ? "0" : "1"));
 
             return identity;
         }
@@ -174,7 +171,7 @@ namespace ViewYourPayments.Core.Extensions
         /// <returns>Value of the first matching claim.</returns>
         public static string GetStringValue(this ClaimsIdentity identity, string claimType)
         {
-            return identity.Claims.First(x => x.Type.EndsWith( claimType)).Value;
+            return identity.Claims.First(x => x.Type.EndsWith(claimType)).Value;
         }
 
 

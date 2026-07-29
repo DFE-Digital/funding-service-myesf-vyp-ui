@@ -1,14 +1,14 @@
-using ViewYourPayments.Core.Models.DFESignIn;
 using DFESignIn.Services.Interfaces;
 using JWT.Algorithms;
 using JWT.Builder;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using ViewYourPayments.Core.Models.AppConfig;
-using Microsoft.Extensions.Options;
-using ViewYourPayments.Core.Interfaces.HttpClient;
 using System.Linq;
+using System.Threading.Tasks;
+using ViewYourPayments.Core.Interfaces.HttpClient;
+using ViewYourPayments.Core.Models.AppConfig;
+using ViewYourPayments.Core.Models.DFESignIn;
 
 namespace DFESignIn.Services.Implementations
 {
@@ -21,7 +21,7 @@ namespace DFESignIn.Services.Implementations
         private readonly IDfeSignInProviderApiHttpClient _dfeSignInProviderHttpClient;
 
 
-        public DfeSignInProviderService(){ }
+        public DfeSignInProviderService() { }
 
         public DfeSignInProviderService(IOptions<AppSettings> appSettings,
             IDfeSignInProviderApiHttpClient dfeSignInProviderHttpClient)
@@ -57,7 +57,7 @@ namespace DFESignIn.Services.Implementations
             var token = GetBearerToken(apiSettings);
             var request = $"/users/{userId}/organisations";
             var result = await _dfeSignInProviderHttpClient.Get<IEnumerable<Organisation>>(token, request);
-            return result?.FirstOrDefault(x=>x.Id.Equals(organisationId.ToString(),StringComparison.CurrentCultureIgnoreCase));
+            return result?.FirstOrDefault(x => x.Id.Equals(organisationId.ToString(), StringComparison.CurrentCultureIgnoreCase));
         }
 
 

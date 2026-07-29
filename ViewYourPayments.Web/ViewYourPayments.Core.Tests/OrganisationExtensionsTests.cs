@@ -1,7 +1,7 @@
-using ViewYourPayments.Core.Models.DFESignIn;
 using FluentAssertions;
-using Xunit;
 using ViewYourPayments.Core.Extensions;
+using ViewYourPayments.Core.Models.DFESignIn;
+using Xunit;
 
 namespace DFESignIn.Tests
 {

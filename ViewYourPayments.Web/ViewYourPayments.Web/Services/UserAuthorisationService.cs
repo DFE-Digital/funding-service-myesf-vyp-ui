@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using ViewYourPayments.Web.Services.Interfaces;
+using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.Services;
 using ViewYourPayments.Core.Models.User;
-using ViewYourPayments.Core.Interfaces;
+using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Shared;
-using System.Security.Claims;
 
 namespace ViewYourPayments.Web.Services
 {
@@ -28,12 +27,12 @@ namespace ViewYourPayments.Web.Services
             _applicationLogger = applicationLogger;
         }
 
-       public PaymentsApplicationSession GetValueFromCookies(string keyName)
+        public PaymentsApplicationSession GetValueFromCookies(string keyName)
         {
-          return  _httpContext.HttpContext.GetCookieValue<PaymentsApplicationSession>(keyName);
+            return _httpContext.HttpContext.GetCookieValue<PaymentsApplicationSession>(keyName);
         }
 
-        public  void UpsertApplicationCookie(string keyName, PaymentsApplicationSession applicationSession)
+        public void UpsertApplicationCookie(string keyName, PaymentsApplicationSession applicationSession)
         {
             _httpContext.HttpContext.UpsertCookie(keyName, applicationSession);
         }
@@ -78,7 +77,7 @@ namespace ViewYourPayments.Web.Services
         {
             if (ukprn <= 0)
             {
-                _applicationLogger.LogWarn($"Ukprn is not valid -{ ukprn}");
+                _applicationLogger.LogWarn($"Ukprn is not valid -{ukprn}");
                 return string.Empty;
             }
 
@@ -126,7 +125,7 @@ namespace ViewYourPayments.Web.Services
         {
             if (!ukprnNumber.HasValue || ukprnNumber.Value <= 0)
             {
-                _applicationLogger.LogWarn($"Ukprn is not valid for current session ukprn -{ ukprnNumber}");
+                _applicationLogger.LogWarn($"Ukprn is not valid for current session ukprn -{ukprnNumber}");
                 return false;
             }
             return true;

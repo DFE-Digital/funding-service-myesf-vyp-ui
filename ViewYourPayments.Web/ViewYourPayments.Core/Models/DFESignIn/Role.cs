@@ -1,5 +1,3 @@
-using System;
-
 namespace ViewYourPayments.Core.Models.DFESignIn
 {
     /// <summary>

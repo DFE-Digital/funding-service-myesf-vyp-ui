@@ -1,26 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Moq;
-using System.Threading.Tasks;
-using ViewYourPayments.Core.Interfaces;
-using ViewYourPayments.Web.Services.Interfaces;
-using ViewYourPayments.Core.Models.AppConfig;
-using ViewYourPayments.Web.Controllers;
-using FluentAssertions;
-using Xunit;
-using System.Security.Claims;
-using ViewYourPayments.Core.Models.User;
-using ViewYourPayments.Core.Interfaces.User;
-using System.Collections.Generic;
-using ViewYourPayments.Web.Models;
-using System;
-using ViewYourPayments.Web.Shared;
-using System.Linq;
-using ViewYourPayments.Core.Interfaces.Services;
-using Microsoft.AspNetCore.Mvc;
-using ViewYourPayments.Core.Enums;
-using ViewYourPayments.Core.DTOs;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using ViewYourPayments.Core.DTOs;
+using ViewYourPayments.Core.Enums;
+using ViewYourPayments.Core.Interfaces;
+using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Interfaces.User;
+using ViewYourPayments.Core.Models.AppConfig;
+using ViewYourPayments.Core.Models.User;
+using ViewYourPayments.Web.Controllers;
+using ViewYourPayments.Web.Models;
+using ViewYourPayments.Web.Services.Interfaces;
+using ViewYourPayments.Web.Shared;
+using Xunit;
 
 namespace ViewYourPayments.Web.Tests.Controllers
 {
@@ -42,7 +42,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             _userAuthorisationService = new Mock<IUserAuthorisationService>();
             Mock<IUrlHelper> urlHelperMock = new Mock<IUrlHelper>();
             _applicationLogger = new Mock<IApplicationLogger>();
-            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialTransactionViewRecordsDuration = 100, PaymentTransactionPageSize =20 };
+            _appSetting = new AppSettings { MyEsfUrl = "https://test.myesf.com", InitialTransactionViewRecordsDuration = 100, PaymentTransactionPageSize = 20 };
             _mockPaymentService = new Mock<IPaymentsService>();
             _mockDocumentManagementService = new Mock<IDocumentManagementService>();
             _paymentTransactionController = new PaymentTransactionsController(_appSettingsOptions.Object, _applicationLogger.Object, _mockPaymentService.Object, _userAuthorisationService.Object, _mockDocumentManagementService.Object);
@@ -89,9 +89,9 @@ namespace ViewYourPayments.Web.Tests.Controllers
         }
 
         [Theory]
-        [InlineData(0, false ,1, 1,PaymentTransactionSortFields.PaymentDate,SortDirection.Descending,"")]                      // User has requested browser page refresh
-        [InlineData( 1, false ,5, 1, PaymentTransactionSortFields.LineAmount, SortDirection.Ascending,"Test,Test1")] //Changed page number
-        public async Task Index_WhenRequestIsNotSubmittedToFilterRecords_ShouldUseFilterParametersFromSession( int pageNumber, 
+        [InlineData(0, false, 1, 1, PaymentTransactionSortFields.PaymentDate, SortDirection.Descending, "")]                      // User has requested browser page refresh
+        [InlineData(1, false, 5, 1, PaymentTransactionSortFields.LineAmount, SortDirection.Ascending, "Test,Test1")] //Changed page number
+        public async Task Index_WhenRequestIsNotSubmittedToFilterRecords_ShouldUseFilterParametersFromSession(int pageNumber,
                                                                                                                 bool isPageReset,
                                                                                                                 int currentPageNumberInSession,
                                                                                                                 int expectedPageNumber,
@@ -123,7 +123,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             model.TransactionFilter.DateRange.EndDateDay.Should().Be(appSession.PaymentTransactionsFilter.ToDate.Day);
 
             _mockPaymentService.Verify(x => x.GetPaymentTransactions(It.Is<PaymentTransactionSearchCriteria>
-                (p => p.Ukprn == "6666" 
+                (p => p.Ukprn == "6666"
                 && p.PageNumber == expectedPageNumber
                 && p.StartDate.ToShortDateString() == appSession.PaymentTransactionsFilter.FromDate.ToShortDateString()
                 && p.EndDate.ToShortDateString() == appSession.PaymentTransactionsFilter.ToDate.ToShortDateString()
@@ -163,7 +163,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             };
 
             //Act
-            dynamic result = await _paymentTransactionController.Index(dateRange,string.Empty);
+            dynamic result = await _paymentTransactionController.Index(dateRange, string.Empty);
 
             //Assert
             var model = (PaymentTransactionsPageViewModel)result.Model;
@@ -207,10 +207,10 @@ namespace ViewYourPayments.Web.Tests.Controllers
         [Theory]
         [InlineData(true, true)] //Reset action
         [InlineData(false, true)] //user typed url in active login. no fiter exists
-        public async Task Index_WhenRequestIsNotValidForSesionValue_ShouldUseDefaultValuesAsFilter( bool hasActiveFilter, bool isPageReset)
+        public async Task Index_WhenRequestIsNotValidForSesionValue_ShouldUseDefaultValuesAsFilter(bool hasActiveFilter, bool isPageReset)
         {
             //Arrange
-            
+
             var applicationSession = GetApplicationSession();
             if (!hasActiveFilter) applicationSession.PaymentsSummaryFilter = null;
             var dateRange = new DatePickerViewModel(DateTime.UtcNow.AddDays(-15), DateTime.UtcNow.AddDays(-5));
@@ -319,7 +319,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
                 User = GetInternalUserDetails("555")
             };
             var searchTermsInSession = "Test, TestValue1, Test value 3";
-            var appSession = GetApplicationSession(1,currentPrimarySortField, currentSortDirection, searchTermsInSession);
+            var appSession = GetApplicationSession(1, currentPrimarySortField, currentSortDirection, searchTermsInSession);
             _paymentTransactionController.ControllerContext.HttpContext = defaultHttpContext;
             _appSettingsOptions.Setup(x => x.Value).Returns(_appSetting);
             _userAuthorisationService.Setup(x => x.GetValueFromCookies(It.IsAny<string>())).Returns(appSession);
@@ -379,7 +379,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
             (p => p.Ukprn == "6666"
                     && p.StartDate.ToShortDateString() == appSession.PaymentTransactionsFilter.FromDate.ToShortDateString()
                     && p.EndDate.ToShortDateString() == appSession.PaymentTransactionsFilter.ToDate.ToShortDateString()
-                    && p.PrimarySortField == PaymentTransactionSortFields.PaymentDate 
+                    && p.PrimarySortField == PaymentTransactionSortFields.PaymentDate
                     && p.SortDirection == SortDirection.Descending
                     )), Times.Once);
         }
@@ -487,7 +487,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
                                             PaymentDate = DateTime.Now,
                                             PaymentLineDescription="TestuserData444"}
                 },
-                CurrentPage =1,
+                CurrentPage = 1,
                 Ukprn = "1234",
             };
         }
@@ -514,7 +514,7 @@ namespace ViewYourPayments.Web.Tests.Controllers
               };
             return provider;
         }
-        private ClaimsPrincipal GetValidUserDetails(string ukprn="555")
+        private ClaimsPrincipal GetValidUserDetails(string ukprn = "555")
         {
             return new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
                 {

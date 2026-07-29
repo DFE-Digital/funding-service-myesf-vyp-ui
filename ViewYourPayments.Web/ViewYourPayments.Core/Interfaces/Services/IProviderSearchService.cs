@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using ViewYourPayments.Core.Interfaces.User;
+﻿using ViewYourPayments.Core.Interfaces.User;
 
 namespace ViewYourPayments.Core.Interfaces.Services
 {

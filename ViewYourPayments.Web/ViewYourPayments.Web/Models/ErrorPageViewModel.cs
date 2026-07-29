@@ -2,7 +2,7 @@
 
 namespace ViewYourPayments.Web.Models
 {
-    public class ErrorPageViewModel:BasePageViewModel
+    public class ErrorPageViewModel : BasePageViewModel
     {
     }
 }

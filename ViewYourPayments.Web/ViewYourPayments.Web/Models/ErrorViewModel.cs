@@ -1,8 +1,6 @@
-using System;
-
 namespace ViewYourPayments.Web.Models
 {
-    public class ErrorViewModel: BasePageViewModel
+    public class ErrorViewModel : BasePageViewModel
     {
         public string RequestId { get; set; }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ViewYourPayments.Core.Enums.User;
+﻿using ViewYourPayments.Core.Enums.User;
 
 namespace ViewYourPayments.Core.Models.AppConfig
 {
