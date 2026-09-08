@@ -95,7 +95,7 @@ namespace ViewYourPayments.Web.Tests.Services
             user.Ukprn.Value.Should().Be(ukprn);
             user.ProviderName.Should().Be(providerName);
             _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Never);
-            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(1));
+            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(3));
         }
 
         [Fact]
@@ -163,7 +163,7 @@ namespace ViewYourPayments.Web.Tests.Services
             //Assert
             result.Should().BeFalse();
             user.Ukprn.Value.Should().Be(ukprn);
-            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Once);
+            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(3));
             _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Once);
         }
 
@@ -185,7 +185,7 @@ namespace ViewYourPayments.Web.Tests.Services
             //Assert
             result.Should().BeFalse();
             user.Ukprn.Value.Should().Be(ukprn);
-            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Never);
+            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(2));
             _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Never);
         }
 
