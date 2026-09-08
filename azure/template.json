@@ -470,7 +470,7 @@
               },
               {
                 "name": "AppSettings:FdsApiHttpClientSettings:ApimSubscriptionKey",
-                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'FdsApimSubscriptionKey'),'2018-02-14').secretUriWithVersion, ')')]"
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'ApimSubscriptionKey'),'2018-02-14').secretUriWithVersion, ')')]"
               },
               {
                 "name": "AppSettings:OAuthHttpClientSettings:Resource",
