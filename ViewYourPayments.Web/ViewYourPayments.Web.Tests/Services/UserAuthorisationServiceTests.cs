@@ -29,6 +29,28 @@ namespace ViewYourPayments.Web.Tests.Services
         }
 
         [Fact]
+        public async Task UpdateClaimWithUkprnAndProviderName_WhenUserIsExternalAndProviderNameIsEmpty_ShouldUpdateProviderName()
+        {
+            //Arrange
+            var ukprn = 1234;
+            var isExternalUser = true;
+            var providerName = "";
+            var newProviderName = "Test Provider";
+            var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, providerName);
+            _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext("?ukprn=1233"));
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
+
+            //Action
+            var result = await _userAuthorisationService.UpdateClaimWithUkprnAndProviderName(claimPrincipal);
+
+            //Assert
+            var user = new ClaimsUser(claimPrincipal);
+            result.Should().BeTrue();
+            user.Ukprn.Value.Should().Be(ukprn);
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
         public async Task UpdateClaimWithUkprnAndProviderName_WhenUserIsExternalAndProviderNameIsNotEmpty_ShouldNotUpdateUkprnAndProvider()
         {
             //Arrange
