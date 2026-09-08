@@ -76,6 +76,7 @@ namespace ViewYourPayments.Web
 
             services.AddApplicationInsightsTelemetry();
             services.AddSingleton<ITagHelperComponent, VYPAnalyticsTagHelper>();
+            services.AddHttpClient<IFdsService, FdsService>();
             services.AddHttpClient<IPaymentsHttpClient, PaymentsHttpClient>();
             services.AddHttpClient<IDfeSignInProviderApiHttpClient, DfeSignInProviderApiHttpClient>();
             services.AddHttpClient<IPaymentsApiOAuthHttpClient, PaymentsApiOAuthHttpClient>();

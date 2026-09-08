@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.Services;
+using ViewYourPayments.Core.Interfaces.User;
 using ViewYourPayments.Core.Models.User;
 using ViewYourPayments.Web.Services.Interfaces;
 using ViewYourPayments.Web.Shared;
@@ -13,16 +14,16 @@ namespace ViewYourPayments.Web.Services
     public class UserAuthorisationService : IUserAuthorisationService
     {
         readonly IHttpContextAccessor _httpContext;
-        readonly IProviderSearchService _providerSearchService;
+        readonly IFdsService _fdsService;
         readonly IApplicationLogger _applicationLogger;
         private const string UkprnQueryStringName = "ukprn";
 
         public UserAuthorisationService(
             IHttpContextAccessor httpContext,
-            IProviderSearchService provideSearchService,
+            IFdsService fdsService,
             IApplicationLogger applicationLogger)
         {
-            _providerSearchService = provideSearchService;
+            _fdsService = fdsService;
             _httpContext = httpContext;
             _applicationLogger = applicationLogger;
         }
@@ -45,7 +46,7 @@ namespace ViewYourPayments.Web.Services
             {
                 return await UpdateInternalUser(cp, user);
             }
-            return await UpdateExternalUser(cp, user);
+            return false;
         }
 
         private async Task<bool> UpdateInternalUser(ClaimsIdentity cp, ClaimsUser user)
@@ -81,13 +82,15 @@ namespace ViewYourPayments.Web.Services
                 return string.Empty;
             }
 
-            var result = await _providerSearchService.GetActiveProvidersByUkprn(ukprn);
-            var providerName = result.FirstOrDefault()?.Name;
+            IProvider result = await _fdsService.GetProvider(ukprn.ToString());
+
+            string providerName = result?.Name ?? string.Empty;
+
             //If provider name not found for selected ukprn then log warning
             if (string.IsNullOrWhiteSpace(providerName))
             {
                 _applicationLogger.LogWarn($"Provider name is empty or null for ukprn - {ukprn}");
-                return string.Empty;
+                return "--";
             }
             return providerName;
         }
