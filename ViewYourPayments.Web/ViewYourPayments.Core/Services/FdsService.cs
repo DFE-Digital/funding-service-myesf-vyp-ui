@@ -28,9 +28,9 @@ namespace ViewYourPayments.Core.Services
             _appSettings = appSettings;
             _applicationLogger = applicationLogger;
 
-            _httpClient.BaseAddress = new Uri(_appSettings.Value.FdsClientSettings.BaseAddress);
+            _httpClient.BaseAddress = new Uri(_appSettings.Value.FdsApiHttpClientSettings.BaseAddress);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _appSettings.Value.FdsClientSettings.ApimSubscriptionKey);
+            _httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", _appSettings.Value.FdsApiHttpClientSettings.ApimSubscriptionKey);
         }
 
         public async Task<IProvider> GetProvider(string ukprn)

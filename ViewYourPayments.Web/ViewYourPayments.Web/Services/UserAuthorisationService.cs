@@ -46,7 +46,7 @@ namespace ViewYourPayments.Web.Services
             {
                 return await UpdateInternalUser(cp, user);
             }
-            return false;
+            return await UpdateExternalUser(cp, user);
         }
 
         private async Task<bool> UpdateInternalUser(ClaimsIdentity cp, ClaimsUser user)
@@ -104,9 +104,6 @@ namespace ViewYourPayments.Web.Services
 
         private bool ShouldUpdateUkprnForInternalUser(ClaimsUser userClaim, int ukPrnFromQuery)
         {
-            _applicationLogger.LogWarn($"Current session ukprn - {userClaim.Ukprn} and new ukprn from query string - {ukPrnFromQuery}");
-            _applicationLogger.LogWarn($"Current session provider name - {userClaim.ProviderName}");
-
             if (IsCurrentUkPrnIsSameAsNewUkprn(userClaim.Ukprn, ukPrnFromQuery)) return false;
             //If ukprn is already in claim and no value in query string i.e no change in ukprn 
             if (userClaim.Ukprn > 0 && ukPrnFromQuery == 0) return false;

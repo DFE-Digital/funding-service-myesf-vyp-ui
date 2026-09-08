@@ -38,6 +38,6 @@ namespace ViewYourPayments.Core.Models.AppConfig
         public string PrivacyUrl { get; set; }
         public string MSClarityId { get; set; }
 
-        public FdsApiHttpClientSettings FdsClientSettings { get; set; }
+        public FdsApiHttpClientSettings FdsApiHttpClientSettings { get; set; }
     }
 }
