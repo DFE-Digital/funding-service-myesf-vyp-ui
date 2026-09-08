@@ -1,12 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
 using ViewYourPayments.Core.Interfaces.Services;
 using ViewYourPayments.Core.Interfaces.User;
