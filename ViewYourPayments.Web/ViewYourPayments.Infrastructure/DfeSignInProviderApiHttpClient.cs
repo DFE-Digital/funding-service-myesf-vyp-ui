@@ -26,7 +26,6 @@ namespace ViewYourPayments.Infrastructure
         public async Task<T> Get<T>(string token, string requestUri)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            _applicationLogger.LogInfo($"Http client request header length [{_client.DefaultRequestHeaders.Accept.Count}]");
             var response = await _client.GetAsync(requestUri);
             if (!response.IsSuccessStatusCode)
             {

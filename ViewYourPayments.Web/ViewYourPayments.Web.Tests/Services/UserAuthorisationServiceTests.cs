@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewYourPayments.Core.Interfaces;
@@ -16,17 +15,17 @@ namespace ViewYourPayments.Web.Tests.Services
 {
     public class UserAuthorisationServiceTests
     {
-        private readonly Mock<IProviderSearchService> _mockProviderSearchService;
+        private readonly Mock<IFdsService> _mockFdsService;
         private readonly Mock<IHttpContextAccessor> _mockHttpContext;
         readonly Mock<IApplicationLogger> _mockApplicationLogger;
         readonly UserAuthorisationService _userAuthorisationService;
         public UserAuthorisationServiceTests()
         {
-            _mockProviderSearchService = new Mock<IProviderSearchService>();
+            _mockFdsService = new Mock<IFdsService>();
             _mockApplicationLogger = new Mock<IApplicationLogger>();
             _mockHttpContext = new Mock<IHttpContextAccessor>();
             _userAuthorisationService = new UserAuthorisationService(_mockHttpContext.Object,
-                _mockProviderSearchService.Object, _mockApplicationLogger.Object);
+                _mockFdsService.Object, _mockApplicationLogger.Object);
         }
 
         [Fact]
@@ -39,7 +38,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var newProviderName = "Test Provider";
             var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, providerName);
             _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext("?ukprn=1233"));
-            _mockProviderSearchService.Setup(x => x.GetActiveProvidersByUkprn(It.IsAny<int>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
 
             //Action
             var result = await _userAuthorisationService.UpdateClaimWithUkprnAndProviderName(claimPrincipal);
@@ -48,7 +47,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var user = new ClaimsUser(claimPrincipal);
             result.Should().BeTrue();
             user.Ukprn.Value.Should().Be(ukprn);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Once);
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -69,7 +68,7 @@ namespace ViewYourPayments.Web.Tests.Services
             result.Should().BeFalse();
             user.Ukprn.Value.Should().Be(ukprn);
             user.ProviderName.Should().Be(providerName);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Never);
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Never);
         }
 
         [Theory]
@@ -94,7 +93,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var user = new ClaimsUser(claimPrincipal);
             user.Ukprn.Value.Should().Be(ukprn);
             user.ProviderName.Should().Be(providerName);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Never);
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Never);
             _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(1));
         }
 
@@ -105,10 +104,10 @@ namespace ViewYourPayments.Web.Tests.Services
             var ukprn = 0;
             var isExternalUser = false;
             var claimProviderName = "";
-            var newProviderName = "Test Provider";
+            var newProviderName = "--";
             var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, claimProviderName);
             _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext("?ukprn=1233"));
-            _mockProviderSearchService.Setup(x => x.GetActiveProvidersByUkprn(It.IsAny<int>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
 
             //Action
             var result = await _userAuthorisationService.UpdateClaimWithUkprnAndProviderName(claimPrincipal);
@@ -118,7 +117,6 @@ namespace ViewYourPayments.Web.Tests.Services
             result.Should().BeTrue();
             user.Ukprn.Value.Should().Be(1233);
             user.ProviderName.Should().Be(newProviderName);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Once);
         }
 
         [Fact]
@@ -128,10 +126,10 @@ namespace ViewYourPayments.Web.Tests.Services
             var ukprn = 123450;
             var isExternalUser = false;
             var claimProviderName = "Test";
-            var newProviderName = "Test Provider";
+            var newProviderName = "--";
             var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, claimProviderName);
             _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext("?ukprn=1233"));
-            _mockProviderSearchService.Setup(x => x.GetActiveProvidersByUkprn(It.IsAny<int>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetValidProvider(ukprn, newProviderName));
 
             //Action
             var result = await _userAuthorisationService.UpdateClaimWithUkprnAndProviderName(claimPrincipal);
@@ -142,29 +140,31 @@ namespace ViewYourPayments.Web.Tests.Services
             result.Should().BeTrue();
             user.Ukprn.Value.Should().Be(1233);
             user.ProviderName.Should().Be(newProviderName);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Once);
         }
 
         [Fact]
         public async Task UpdateClaimWithUkprnAndProviderName_ValidUkprnAndProviderInClaim_UserTypeIsInternalAndUkprnInQueryString_NoValidProvider_ShouldThrowExecptionAndNoUkprnUpdateInClaim()
         {
             //Arrange
-            var ukprn = 123450;
+            var ukprn = 12345;
+            var ukprnInQueryString = 1233;
             var isExternalUser = false;
             var claimProviderName = "Test";
+            var newProviderName = "--";
             var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, claimProviderName);
-            _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext("?ukprn=1233"));
-            _mockProviderSearchService.Setup(x => x.GetActiveProvidersByUkprn(It.IsAny<int>())).ReturnsAsync(GetInvalidProvider());
+            _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext($"?ukprn={ukprnInQueryString}"));
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetInvalidProvider());
 
             //Action
             //Act
             var result = await _userAuthorisationService.UpdateClaimWithUkprnAndProviderName(claimPrincipal);
             var user = new ClaimsUser(claimPrincipal);
             //Assert
-            result.Should().BeFalse();
-            user.Ukprn.Value.Should().Be(ukprn);
-            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Once);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Once);
+            result.Should().BeTrue();
+            user.Ukprn.Value.Should().Be(ukprnInQueryString);
+            user.ProviderName.Should().Be(newProviderName);
+            _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Exactly(1));
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -176,7 +176,7 @@ namespace ViewYourPayments.Web.Tests.Services
             var claimProviderName = "Test";
             var claimPrincipal = GetUserDetailsWithValidRole(ukprn, isExternalUser, claimProviderName);
             _mockHttpContext.Setup(x => x.HttpContext).Returns(GetHttpContext(""));
-            _mockProviderSearchService.Setup(x => x.GetActiveProvidersByUkprn(It.IsAny<int>())).ReturnsAsync(GetInvalidProvider());
+            _mockFdsService.Setup(x => x.GetProvider(It.IsAny<string>())).ReturnsAsync(GetInvalidProvider());
 
             //Action
             //Act
@@ -186,7 +186,7 @@ namespace ViewYourPayments.Web.Tests.Services
             result.Should().BeFalse();
             user.Ukprn.Value.Should().Be(ukprn);
             _mockApplicationLogger.Verify(x => x.LogWarn(It.IsAny<string>()), Times.Never);
-            _mockProviderSearchService.Verify(x => x.GetActiveProvidersByUkprn(It.IsAny<int>()), Times.Never);
+            _mockFdsService.Verify(x => x.GetProvider(It.IsAny<string>()), Times.Never);
         }
 
         private HttpContext GetHttpContext(string queryString)
@@ -213,20 +213,13 @@ namespace ViewYourPayments.Web.Tests.Services
                 new Claim(ClaimsUser.EmailClaimType, "abc@test.com"),
                 }));
         }
-        private IEnumerable<IProvider> GetInvalidProvider()
+        private IProvider GetInvalidProvider()
         {
-            var provider = new Provider[]
-              {
-              };
-            return provider;
+            return null;
         }
-        private IEnumerable<IProvider> GetValidProvider(int ukprn, string providerName)
+        private IProvider GetValidProvider(int ukprn, string providerName)
         {
-            var provider = new Provider[]
-              {
-                  new Provider (ukprn,providerName,"1212","2323")
-              };
-            return provider;
+            return new Provider(ukprn, providerName, "1212", "2323");
         }
     }
 }

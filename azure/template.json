@@ -143,6 +143,12 @@
         "description": "App Setting Payments Api Http Client Settings Base Address"
       }
     },
+    "FdsApiHttpClientSettingsBaseAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "App Setting Fds Api Http Client Settings Base Address"
+      }
+    },
     "OAuthHttpClientSettingsGrantType": {
       "type": "string",
       "metadata": {
@@ -459,6 +465,14 @@
                 "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'ApimSubscriptionKey'),'2018-02-14').secretUriWithVersion, ')')]"
               },
               {
+                "name": "AppSettings:FdsApiHttpClientSettings:BaseAddress",
+                "value": "[parameters('FdsApiHttpClientSettingsBaseAddress')]"
+              },
+              {
+                "name": "AppSettings:FdsApiHttpClientSettings:ApimSubscriptionKey",
+                "value": "[concat('@Microsoft.KeyVault(SecretUri=', reference(resourceId('Microsoft.KeyVault/vaults/secrets', parameters('sharedKeyVaultName'),'FdsPublicApiSubscriptionKey'),'2018-02-14').secretUriWithVersion, ')')]"
+              },
+              {
                 "name": "AppSettings:OAuthHttpClientSettings:Resource",
                 "value": "[parameters('OAuthHttpClientSettingsResource')]"
               },
@@ -525,7 +539,7 @@
               {
                 "name": "AppSettings:DfeSettings:DfeSignInUrl",
                 "value": "[parameters('DfeSettingsDfeSignInUrl')]"
-              },              
+              },
               {
                 "name": "WEBSITE_TIME_ZONE",
                 "value": "GMT Standard Time"

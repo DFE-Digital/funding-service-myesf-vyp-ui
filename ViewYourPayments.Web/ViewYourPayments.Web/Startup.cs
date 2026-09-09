@@ -51,11 +51,6 @@ namespace ViewYourPayments.Web
             var appLogger = GetLogger(environment, appInsightKey);
             services.AddSingleton<IApplicationLogger>(al => (appLogger));
 
-            services.AddSingleton<IProviderSearchService>(sp =>
-           new UkRlpProviderSearchService(appSettings.ProviderSearchSettings.ServiceEndpoint,
-           appSettings.ProviderSearchSettings.SchemaVersion,
-           appSettings.ProviderSearchSettings.StakeholderId, appLogger));
-
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto |
@@ -76,6 +71,7 @@ namespace ViewYourPayments.Web
 
             services.AddApplicationInsightsTelemetry();
             services.AddSingleton<ITagHelperComponent, VYPAnalyticsTagHelper>();
+            services.AddHttpClient<IFdsService, FdsService>();
             services.AddHttpClient<IPaymentsHttpClient, PaymentsHttpClient>();
             services.AddHttpClient<IDfeSignInProviderApiHttpClient, DfeSignInProviderApiHttpClient>();
             services.AddHttpClient<IPaymentsApiOAuthHttpClient, PaymentsApiOAuthHttpClient>();
